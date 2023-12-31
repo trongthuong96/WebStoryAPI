@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wTxsb5rmaRcsmCaHBLdJrI4r6jILfRRX/ICVk3m5YP3BubSFSk5Xuwysc/G3n9+GIYDXHMNB3sihiSPz6+Ih6A==",
+  "dgSpecHash": "hm7B4/v8Od46mBqZ7aF5r60TRFueX+O8g3HFJtZnbDih+QM5awstVoihnrTmQcfNrUFRC9YKR1P9NIm5wvXHfQ==",
   "success": true,
-  "projectFilePath": "/Users/trongthuong96/Desktop/webstory/Utility/Utility.csproj",
+  "projectFilePath": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj",
   "expectedPackageFiles": [
     "/Users/trongthuong96/.nuget/packages/slugify.core/4.0.1/slugify.core.4.0.1.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/system.memory/4.5.5/system.memory.4.5.5.nupkg.sha512",

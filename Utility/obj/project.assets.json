@@ -181,11 +181,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/trongthuong96/Desktop/webstory/Utility/Utility.csproj",
+      "projectUniqueName": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj",
       "projectName": "Utility",
-      "projectPath": "/Users/trongthuong96/Desktop/webstory/Utility/Utility.csproj",
+      "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj",
       "packagesPath": "/Users/trongthuong96/.nuget/packages/",
-      "outputPath": "/Users/trongthuong96/Desktop/webstory/Utility/obj/",
+      "outputPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/trongthuong96/.nuget/NuGet/NuGet.Config"

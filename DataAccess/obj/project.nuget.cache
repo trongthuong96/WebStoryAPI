@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mhRWTjWxgxGX/juebFd+vi2KY63w5Q7/iUK07re1bX2vxQn+9kS1KidqzUSGnui9FONTbg7xrSBHUMpi9ZnNJA==",
+  "dgSpecHash": "hTYhDIGBF2XvSDRdLqFNEtQjxpny9NbYkLBLfWf+eu9SZ+ppLEe2GiALPouDDU7TwegITZeI40CdJsx8+VhPaQ==",
   "success": true,
-  "projectFilePath": "/Users/trongthuong96/Desktop/webstory/DataAccess/DataAccess.csproj",
+  "projectFilePath": "/Users/trongthuong96/Desktop/WebStoryAPI/DataAccess/DataAccess.csproj",
   "expectedPackageFiles": [
     "/Users/trongthuong96/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

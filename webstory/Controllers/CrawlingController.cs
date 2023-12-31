@@ -122,16 +122,54 @@ namespace webstory.Controllers
             }
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        //GetListChap69shuba
+        // POST api/chap-content-crawl
+        [HttpPost("list-chap-crawl")]
+        public async Task<IActionResult> GetListChapCrawl([FromBody] DataChap data)
         {
-        }
+            try
+            {
+                var chineseBook = await _chineseBookService.GetChineseBookById(data.ChineseBookId);
+                if (chineseBook == null)
+                {
+                    return NotFound();
+                }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+                var chapter = new ChapterDto();
+
+                var uri = chineseBook.ChineseSite!;
+
+                var checkUri = uri.Split("/")[2];
+
+                if (checkUri.Equals(SD.LINK69SHU) || checkUri.Equals(SD.LINK69XINSHU))
+                {
+                    var uriChapArray = chineseBook.ChineseSite!.Split(".");
+                    string uriChap = uriChapArray[0] + "." + uriChapArray[1] + "." + uriChapArray[2] + "/";
+                    await _crawlingService.GetListChap69shuba(uriChap, data.BookId, data.ChineseBookId);
+                }
+                else if (checkUri.Equals(SD.LINKFANQIE))
+                {
+                    await _crawlingService.GetListChapFanqie(chineseBook.ChineseSite!, data.BookId, data.ChineseBookId);
+                }
+
+                return Ok();
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { Message = "Internal server error" });
+            }
         }
     }
 
@@ -139,6 +177,12 @@ namespace webstory.Controllers
     {
         public int chineseBookId { get; set; }
         public short chapterIndex { get; set; }
+    }
+
+    public class DataChap
+    {
+        public int BookId { get; set; }
+        public short ChineseBookId { get; set; }
     }
 }
 

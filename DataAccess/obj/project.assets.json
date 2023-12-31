@@ -5063,11 +5063,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/trongthuong96/Desktop/webstory/DataAccess/DataAccess.csproj",
+      "projectUniqueName": "/Users/trongthuong96/Desktop/WebStoryAPI/DataAccess/DataAccess.csproj",
       "projectName": "DataAccess",
-      "projectPath": "/Users/trongthuong96/Desktop/webstory/DataAccess/DataAccess.csproj",
+      "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/DataAccess/DataAccess.csproj",
       "packagesPath": "/Users/trongthuong96/.nuget/packages/",
-      "outputPath": "/Users/trongthuong96/Desktop/webstory/DataAccess/obj/",
+      "outputPath": "/Users/trongthuong96/Desktop/WebStoryAPI/DataAccess/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/trongthuong96/.nuget/NuGet/NuGet.Config"
@@ -5082,11 +5082,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/Users/trongthuong96/Desktop/webstory/Models/Models.csproj": {
-              "projectPath": "/Users/trongthuong96/Desktop/webstory/Models/Models.csproj"
+            "/Users/trongthuong96/Desktop/WebStoryAPI/Models/Models.csproj": {
+              "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Models/Models.csproj"
             },
-            "/Users/trongthuong96/Desktop/webstory/Utility/Utility.csproj": {
-              "projectPath": "/Users/trongthuong96/Desktop/webstory/Utility/Utility.csproj"
+            "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj": {
+              "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj"
             }
           }
         }

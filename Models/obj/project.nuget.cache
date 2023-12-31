@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VEu/qWXZJKR7iWJ1V1PT2vdl8NA9VGtmSd5OjJYeGxYsRuaRj6TzUfFuZ5jTE2Q3xzZNLD4sCXW6VzMkCn92Vw==",
+  "dgSpecHash": "g3kTefQvd79zjna7SubXyxMHQY7A+Sp/ryIPpgxUFLvQrNdUm4BTN18WH8onk1pLgP3UbaZgM3xrepuiqDyFxw==",
   "success": true,
-  "projectFilePath": "/Users/trongthuong96/Desktop/webstory/Models/Models.csproj",
+  "projectFilePath": "/Users/trongthuong96/Desktop/WebStoryAPI/Models/Models.csproj",
   "expectedPackageFiles": [
     "/Users/trongthuong96/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",

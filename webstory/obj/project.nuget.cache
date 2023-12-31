@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Gig5wjuN9ZPoJBzAygfxcVHDIlXqzNPABGu/TaUSn92W3TphTGnTlhm4W2RHO1cXZeqO95giPiquzacjmHl+jg==",
+  "dgSpecHash": "OrwfMDbs+r0WIdNZe5njSIXN+OM8MJz4t166552pTitzSRo74Lxq12MYfJRmHaxMa/cOo06am/xePXksMaTzXA==",
   "success": true,
-  "projectFilePath": "/Users/trongthuong96/Desktop/webstory/webstory/webstory.csproj",
+  "projectFilePath": "/Users/trongthuong96/Desktop/WebStoryAPI/webstory/webstory.csproj",
   "expectedPackageFiles": [
     "/Users/trongthuong96/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

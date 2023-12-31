@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using AutoMapper;
+using Azure.Core;
 using DataAccess.Repository.IRepository;
 using DataAccess.Services.IServices;
 using HtmlAgilityPack;
@@ -496,7 +497,6 @@ namespace DataAccess.Services
                 }
 
                 BookCrawlDto bookCrawl = new BookCrawlDto();
-                var chapterCrawlls = new List<ChapterCrawllDto>();
 
                 string urlInfo = "";
                 string urlBase = "";
@@ -612,76 +612,91 @@ namespace DataAccess.Services
 
                             slug = await _bookRepository.FindSingleAsync<string>(b => b.Id == bookId, b => b.Slug);
                         }
+
                         // chapter info
                         string urlChap = urlBase + bookId69ShubaString + "/";
 
-                        request = (HttpWebRequest)WebRequest.Create(urlChap);
-                        response = (HttpWebResponse)await request.GetResponseAsync();
+                        await GetListChap69shuba(urlChap, bookId, chineseBookId);
 
-                        await using (Stream stream1 = response.GetResponseStream())
-                        {
-                            using (StreamReader reader1 = new StreamReader(stream1, Encoding.GetEncoding("GB2312")))
-                            {
-                                var html1 = await reader1.ReadToEndAsync();
-
-                                if (html1 == null)
-                                {
-                                    return null;
-                                }
-
-                                var doc1 = new HtmlDocument();
-                                doc1.LoadHtml(html1);
-
-                                var titleNode = doc1.DocumentNode.SelectSingleNode("//*[@id=\"catalog\"]/ul");
-
-                                if (titleNode != null)
-                                {
-                                    var titleElements = titleNode.SelectNodes("//*[@id=\"catalog\"]/ul/li/a");
-                                    if (titleElements != null)
-                                    {
-                                        var tasks = titleElements.Select(async (titleElement) =>
-                                        {
-                                            string title = await RemoveChapterNumberAsync(titleElement.InnerText);
-
-                                            // Lấy giá trị của thuộc tính data-num
-                                            int dataNum;
-                                            if (titleElement.ParentNode.Attributes["data-num"] != null &&
-                                                int.TryParse(titleElement.ParentNode.Attributes["data-num"].Value, out dataNum))
-                                            {
-                                                // Lấy giá trị của thuộc tính href
-                                                var hrefAttribute = titleElement.Attributes["href"].Value;
-                                                string href = hrefAttribute != null ? hrefAttribute : null;
-
-                                                var chapter = new ChapterCrawllDto
-                                                {
-                                                    ChineseTitle = title,
-                                                    ChapNumber = (short)(dataNum),
-                                                    ChapterIndex = (short)(dataNum), // Bắt đầu từ 1
-                                                    ChineseSite = href
-                                                };
-
-                                                chapterCrawlls.Add(chapter);
-                                            }
-                                        });
-
-                                        // Chờ tất cả các nhiệm vụ bất đồng bộ hoàn thành
-                                        await Task.WhenAll(tasks);
-
-                                    }
-                                }
-
-
-                                await _chapterService.AddAndUpdateChaptersCrawl(bookId, chineseBookId, chapterCrawlls);
-
-                                return slug;
-
-                            }
-                        }
+                        return slug;
                     }
                 }
 
             }
             catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// LIST CHAP 69SHUBA
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task GetListChap69shuba(string urlChap, int bookId, int chineseBookId)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlChap);
+                HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
+
+                await using (Stream stream1 = response.GetResponseStream())
+                {
+                    using (StreamReader reader1 = new StreamReader(stream1, Encoding.GetEncoding("GB2312")))
+                    {
+                        var html1 = await reader1.ReadToEndAsync();
+
+                        var doc1 = new HtmlDocument();
+                        doc1.LoadHtml(html1);
+
+                        var titleNode = doc1.DocumentNode.SelectSingleNode("//*[@id=\"catalog\"]/ul");
+
+                        var chapterCrawlls = new List<ChapterCrawllDto>();
+
+                        if (titleNode != null)
+                        {
+                            var titleElements = titleNode.SelectNodes("//*[@id=\"catalog\"]/ul/li/a");
+                            if (titleElements != null)
+                            {
+                                var tasks = titleElements.Select(async (titleElement) =>
+                                {
+                                    string title = await RemoveChapterNumberAsync(titleElement.InnerText);
+
+                                    // Lấy giá trị của thuộc tính data-num
+                                    int dataNum;
+                                    if (titleElement.ParentNode.Attributes["data-num"] != null &&
+                                        int.TryParse(titleElement.ParentNode.Attributes["data-num"].Value, out dataNum))
+                                    {
+                                        // Lấy giá trị của thuộc tính href
+                                        var hrefAttribute = titleElement.Attributes["href"].Value;
+                                        string href = hrefAttribute != null ? hrefAttribute : null;
+
+                                        var chapter = new ChapterCrawllDto
+                                        {
+                                            ChineseTitle = title,
+                                            ChapNumber = (short)(dataNum),
+                                            ChapterIndex = (short)(dataNum), // Bắt đầu từ 1
+                                            ChineseSite = href
+                                        };
+
+                                        chapterCrawlls.Add(chapter);
+                                    }
+                                });
+
+                                // Chờ tất cả các nhiệm vụ bất đồng bộ hoàn thành
+                                await Task.WhenAll(tasks);
+
+                            }
+                        }
+
+
+                        await _chapterService.AddAndUpdateChaptersCrawl(bookId, chineseBookId, chapterCrawlls);
+                    }
+                }
+            }
+            catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -829,7 +844,6 @@ namespace DataAccess.Services
                 }
 
                 BookCrawlDto bookCrawl = new BookCrawlDto();
-                var chapterCrawlls = new List<ChapterCrawllDto>();
 
                 string urlInfo = "https://fanqienovel.com/page/" + bookIdFanqieString;
 
@@ -952,42 +966,53 @@ namespace DataAccess.Services
                             slug = await _bookRepository.FindSingleAsync<string>(b => b.Id == bookId, b => b.Slug);
                         }
 
+                        // chapter list
+                        await GetListChapFanqie(urlInfo, bookId, chineseBookId);
+
+                        return slug;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task GetListChapFanqie(string uriInfo, int bookId, int chineseBookId)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uriInfo);
+
+                // Set the User-Agent header to mimic an Android device
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36";
+
+                HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
+
+                await using (Stream stream = response.GetResponseStream())
+                {
+                    using (StreamReader reader = new StreamReader(stream, Encoding.GetEncoding("UTF-8")))
+                    {
+
+                        var html = await reader.ReadToEndAsync();
+
+                        var doc = new HtmlDocument();
+                        doc.LoadHtml(html);
+
                         // chapter info //*[@id="app"]/div/div[2]/div/div[2]/div/div[4]/div/div[2]
                         var titleChapterNode = doc.DocumentNode.SelectSingleNode("//*[@id=\"app\"]/div/div/div/div[2]/div/div[4]/div/div[2]");
-
 
                         if (titleChapterNode != null)
                         {
                             //*[@id="app"]/div/div[2]/div/div[2]/div/div[4]/div/div[2]/div[2]/a
                             var Elements = titleChapterNode.SelectNodes("//*[@class='chapter-item']");
+
+                            var chapterCrawlls = new List<ChapterCrawllDto>();
+
                             if (Elements != null)
                             {
-                                //foreach (var (element, index) in Elements.Select((element, index) => (element, index)))
-                                //{
-
-                                //    string titleAndChapNumber = element.SelectSingleNode("a").InnerText.Trim();
-
-                                //    string title = RemoveChapterNumber(titleAndChapNumber);
-
-                                //    short chapNumber = GetChapterNumber(titleAndChapNumber);
-
-
-                                //    // Lấy giá trị của thuộc tính href
-                                //    var hrefAttribute = element.SelectSingleNode("a").GetAttributeValue("href", "");
-                                //    string href = hrefAttribute != null ? hrefAttribute : null;
-
-
-                                //    var chapter = new ChapterCrawllDto
-                                //    {
-                                //        ChineseTitle = title,
-                                //        ChapNumber = chapNumber,
-                                //        ChapterIndex = (short)(index + 1), // Bắt đầu từ 1
-                                //        ChineseSite = href
-                                //    };
-
-                                //    chapterCrawlls.Add(chapter);
-                                //}
-
                                 var tasks = Elements.Select(async (element, index) =>
                                 {
                                     string titleAndChapNumber = element.SelectSingleNode("a").InnerText.Trim();
@@ -1024,17 +1049,15 @@ namespace DataAccess.Services
                                 await _chapterService.AddAndUpdateChaptersCrawl(bookId, chineseBookId, chapterCrawlls);
                             }
                         }
-                        // var getBook = await _bookRepository.GetBookByIdAsync(bookId);
-
-                        return slug;
                     }
-
                 }
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+          
+
+           
         }
 
         /// <summary>

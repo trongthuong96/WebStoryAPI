@@ -16,6 +16,8 @@ namespace DataAccess.Services.IServices
         Task<string> GetBookFanqie(string uri);
         Task<ChapterDto> GetContentChap69shuba(int chineseBookId, short chapterIndex);
         Task<ChapterDto> GetContentChapFanqie(string uriBook, int chineseBookId, short chapterIndex);
+        Task GetListChap69shuba(string urlChap, int bookId, int chineseBookId);
+        Task GetListChapFanqie(string uriInfo, int bookId, int chineseBookId);
     }
 }
 
