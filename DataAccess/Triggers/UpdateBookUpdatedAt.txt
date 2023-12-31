@@ -1,0 +1,20 @@
+﻿// updatedAt of Book when add or update chapter
+
+CREATE TRIGGER UpdateBookUpdatedAt 
+ON Chapters
+AFTER INSERT
+AS BEGIN
+  UPDATE b
+    SET b.UpdatedAt = GETUTCDATE()
+  FROM Books b 
+  INNER JOIN inserted i
+    ON b.Id = i.BookId
+END
+
+// add ApplicationDbContext
+modelBuilder.Entity<Chapter>(entity =>
+            {
+                entity.ToTable(tb => tb.HasTrigger("UpdateBookUpdatedAt"));
+
+                entity.ToTable(tb => tb.HasTrigger("UpdateChapterIndex"));
+            });

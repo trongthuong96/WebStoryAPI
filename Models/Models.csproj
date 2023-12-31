@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Utility\Utility.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.14" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Dto\" />
+    <None Remove="Dto\Book\" />
+    <None Remove="Dto\Genre\" />
+    <None Remove="Dto\Chapter\" />
+    <None Remove="Dto\Author\" />
+    <None Remove="Dto\ApplicationUser\" />
+    <None Remove="Dto\CrfsToken\" />
+    <None Remove="Dto\Crawling\" />
+    <None Remove="Dto\Crawling\MeTruyenChu\" />
+    <None Remove="Dto\Crawling\Translate\" />
+    <None Remove="Dto\Crawling\69shuba\" />
+    <None Remove="Dto\ChineseBookDto\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dto\" />
+    <Folder Include="Dto\Book\" />
+    <Folder Include="Dto\Genre\" />
+    <Folder Include="Dto\Chapter\" />
+    <Folder Include="Dto\Author\" />
+    <Folder Include="Dto\ApplicationUser\" />
+    <Folder Include="Dto\CrfsToken\" />
+    <Folder Include="Dto\Crawling\" />
+    <Folder Include="Dto\Crawling\MeTruyenChu\" />
+    <Folder Include="Dto\Crawling\Translate\" />
+    <Folder Include="Dto\Crawling\69shuba\" />
+    <Folder Include="Dto\ChineseBookDto\" />
+  </ItemGroup>
+</Project>

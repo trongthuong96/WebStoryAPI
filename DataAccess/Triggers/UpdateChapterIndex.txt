@@ -1,0 +1,34 @@
+﻿CREATE TRIGGER UpdateChapterIndex
+ON Chapters
+AFTER DELETE
+AS 
+BEGIN
+  DECLARE @bookId INT;
+  
+  SELECT @bookId = BookId 
+  FROM deleted;
+
+  -- Cập nhật lại chapter index liên tục từ 1
+  ;WITH UpdatedChapters AS (
+    SELECT 
+      Id,
+      ROW_NUMBER() OVER (PARTITION BY BookId ORDER BY ChapterIndex) AS NewChapterIndex
+    FROM Chapters
+    WHERE BookId = @bookId
+  )
+  UPDATE c
+  SET 
+    c.ChapterIndex = uc.NewChapterIndex
+  FROM Chapters c
+  INNER JOIN UpdatedChapters uc
+    ON c.Id = uc.Id;
+
+END
+
+// add ApplicationDbContext
+modelBuilder.Entity<Chapter>(entity =>
+            {
+                entity.ToTable(tb => tb.HasTrigger("UpdateBookUpdatedAt"));
+
+                entity.ToTable(tb => tb.HasTrigger("UpdateChapterIndex"));
+            });
