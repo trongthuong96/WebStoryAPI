@@ -15,6 +15,7 @@
     <None Remove="AutoMapper\" />
     <None Remove="Middleware\" />
     <None Remove="Triggers\" />
+    <None Remove="Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -25,6 +26,7 @@
     <Folder Include="AutoMapper\" />
     <Folder Include="Middleware\" />
     <Folder Include="Triggers\" />
+    <Folder Include="Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
@@ -50,6 +52,5 @@
     <PackageReference Include="EFCore.BulkExtensions" Version="7.8.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.55" />
-    <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
   </ItemGroup>
 </Project>

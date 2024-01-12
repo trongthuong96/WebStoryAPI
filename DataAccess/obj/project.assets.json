@@ -92,18 +92,6 @@
           }
         }
       },
-      "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
-        "type": "package",
-        "dependencies": {
-          "Selenium.WebDriver": "3.10.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll": {}
-        }
-      },
       "EFCore.BulkExtensions/7.8.1": {
         "type": "package",
         "dependencies": {
@@ -1386,22 +1374,6 @@
           }
         }
       },
-      "Selenium.WebDriver/3.10.0": {
-        "type": "package",
-        "dependencies": {
-          "Newtonsoft.Json": "10.0.3"
-        },
-        "compile": {
-          "lib/netstandard2.0/WebDriver.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/WebDriver.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Slugify.Core/4.0.1": {
         "type": "package",
         "dependencies": {
@@ -2111,21 +2083,6 @@
         "lib/netstandard2.0/Microsoft.SqlServer.Types.dll",
         "lib/netstandard2.0/Microsoft.SqlServer.Types.pdb",
         "lib/netstandard2.0/Microsoft.SqlServer.Types.xml"
-      ]
-    },
-    "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
-      "sha512": "xc6jVVl5ymgk3ZNWnC/KHxkEup1QpnwYbrwF+NQoCOGERsD8YMlLwmsX4lGhLXCLo/YQTRTIwlKCN9E/doGUNg==",
-      "type": "package",
-      "path": "dotnetseleniumextras.waithelpers/3.11.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
-        "dotnetseleniumextras.waithelpers.nuspec",
-        "lib/net35/SeleniumExtras.WaitHelpers.dll",
-        "lib/net40/SeleniumExtras.WaitHelpers.dll",
-        "lib/net45/SeleniumExtras.WaitHelpers.dll",
-        "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll"
       ]
     },
     "EFCore.BulkExtensions/7.8.1": {
@@ -3757,25 +3714,6 @@
         "version.txt"
       ]
     },
-    "Selenium.WebDriver/3.10.0": {
-      "sha512": "UQAJ3FQ4YddtgRnjQilgKuP83lsrbnHCHLMMWF0UNhZz3Gv1X61gPWHetJpSj5K6D4eAJT7+gRjLzJvrmsDFOQ==",
-      "type": "package",
-      "path": "selenium.webdriver/3.10.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net35/WebDriver.dll",
-        "lib/net35/WebDriver.xml",
-        "lib/net40/WebDriver.dll",
-        "lib/net40/WebDriver.xml",
-        "lib/net45/WebDriver.dll",
-        "lib/net45/WebDriver.xml",
-        "lib/netstandard2.0/WebDriver.dll",
-        "lib/netstandard2.0/WebDriver.xml",
-        "selenium.webdriver.3.10.0.nupkg.sha512",
-        "selenium.webdriver.nuspec"
-      ]
-    },
     "Slugify.Core/4.0.1": {
       "sha512": "0YKMECQGdi7O4T1SL1IFaXWSPJdXNFMoGUdxMPsqI+TBuKlhiTD7mBxRH8gd9WD3MJSTEqyF0WsGl7l+NpoXXA==",
       "type": "package",
@@ -5038,7 +4976,6 @@
     "net7.0": [
       "AutoMapper >= 12.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
-      "DotNetSeleniumExtras.WaitHelpers >= 3.11.0",
       "EFCore.BulkExtensions >= 7.8.1",
       "HtmlAgilityPack >= 1.11.55",
       "Microsoft.AspNetCore.Antiforgery >= 2.2.0",
@@ -5108,10 +5045,6 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[12.0.1, )"
-          },
-          "DotNetSeleniumExtras.WaitHelpers": {
-            "target": "Package",
-            "version": "[3.11.0, )"
           },
           "EFCore.BulkExtensions": {
             "target": "Package",
@@ -5188,7 +5121,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.311/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.312/RuntimeIdentifierGraph.json"
       }
     }
   }

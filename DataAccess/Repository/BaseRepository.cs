@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace DataAccess.Repository
 {
@@ -66,10 +67,12 @@ namespace DataAccess.Repository
         // lấy thuộc tính cần chọn
         public async Task<TResult> FindSingleAsync<TResult>(Expression<Func<T, bool>> predicate, Expression<Func<T, TResult>> selector)
         {
+            #pragma warning disable CS8603 // Possible null reference return.
             return await _dbSet
                 .Where(predicate)
                 .Select(selector)
                 .FirstOrDefaultAsync();
+            #pragma warning restore CS8603 // Possible null reference return.
         }
 
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
@@ -80,6 +83,12 @@ namespace DataAccess.Repository
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddRangeAsync(IEnumerable<T> entities)
+        {
+            await _dbSet.AddRangeAsync(entities);
             await _context.SaveChangesAsync();
         }
 
@@ -110,6 +119,16 @@ namespace DataAccess.Repository
         {
             var data = entities.Select(searchExpression.Compile()).ToList();
             await _context.BulkReadAsync(data);
+        }
+
+        public async Task BulkUpdateRangeAsync(IEnumerable<T> entities)
+        {
+            await _context.BulkUpdateAsync(entities);
+        }
+
+        public async Task BulkAddRangeAsync(IEnumerable<T> entities)
+        {
+            await _context.BulkInsertAsync(entities);
         }
     }
 

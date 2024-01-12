@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Antiforgery;
+﻿using Azure;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -22,18 +23,41 @@ namespace webstory.Controllers
             _antiforgery = antiforgery;
         }
 
-        [Authorize(SD.ADMIN)]
+        //[HttpPost("refresh-token")]
+        //public ActionResult<CrfsToken> RefreshCsrfToken()
+        //{
+        //    var tokenSet = _antiforgery.GetAndStoreTokens(HttpContext);
+        //    CrfsToken crfsToken = new CrfsToken { Token = tokenSet.RequestToken };
+
+        //    var tokenSet = antiforgery.GetAndStoreTokens(context);
+
+        //    context.Response.Cookies.Append("XSRF-TOKEN", tokenSet.RequestToken!, new CookieOptions
+        //    {
+        //        HttpOnly = false,
+        //        SameSite = SameSiteMode.Strict,  // Hoặc SameSiteMode.Strict
+        //        Secure = true,  // Nếu sử dụng HTTPS
+        //        Domain = "truyenmoi.click"
+        //    });
+
+        //    // Trả về token mới
+        //    return Ok(crfsToken);
+        //}
+
         [HttpPost("refresh-token")]
-        public ActionResult<CrfsToken> RefreshCsrfToken()
+        [IgnoreAntiforgeryToken]
+        public async Task<ActionResult<CrfsToken>> RefreshCsrfTokenAsync()
         {
-            var tokenSet = _antiforgery.GetAndStoreTokens(HttpContext);
-            CrfsToken crfsToken = new CrfsToken { Token = tokenSet.RequestToken };
+            string token = _antiforgery.GetAndStoreTokens(HttpContext).RequestToken!;
+
+            CrfsToken crfsToken = new CrfsToken { Token = await SD.EncryptAsync(token) };
+
+            Response.Headers.Append("XSRF-TOKEN", token);
+
+            await Task.Delay(50);
 
             // Trả về token mới
             return Ok(crfsToken);
         }
-
-
     }
 
 }

@@ -29,6 +29,8 @@ namespace Models
         public string UserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
+
+        public ICollection<Chapter>? Chapters { get; set; }
     }
 }
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "OrwfMDbs+r0WIdNZe5njSIXN+OM8MJz4t166552pTitzSRo74Lxq12MYfJRmHaxMa/cOo06am/xePXksMaTzXA==",
+  "dgSpecHash": "Px512IgqiRZlRF1XT7PLhe5KjrByZwodKpPlUv1kLZ+l+Hyi8LN0HgFnUFsHzV28bW0BUZrtD8xJo9HRI1TE0w==",
   "success": true,
   "projectFilePath": "/Users/trongthuong96/Desktop/WebStoryAPI/webstory/webstory.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,6 @@
     "/Users/trongthuong96/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/dotmorten.microsoft.sqlserver.types/1.5.0/dotmorten.microsoft.sqlserver.types.1.5.0.nupkg.sha512",
-    "/Users/trongthuong96/.nuget/packages/dotnetseleniumextras.waithelpers/3.11.0/dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/duovia.fuzzystrings/2.1.0/duovia.fuzzystrings.2.1.0.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/efcore.bulkextensions/7.8.1/efcore.bulkextensions.7.8.1.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/entityframeworkcore.sqlserver.hierarchyid/4.0.0/entityframeworkcore.sqlserver.hierarchyid.4.0.0.nupkg.sha512",
@@ -101,7 +100,6 @@
     "/Users/trongthuong96/.nuget/packages/runtime.win-arm64.runtime.native.system.data.sqlclient.sni/4.4.0/runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/runtime.win-x64.runtime.native.system.data.sqlclient.sni/4.4.0/runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0/runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
-    "/Users/trongthuong96/.nuget/packages/selenium.webdriver/3.10.0/selenium.webdriver.3.10.0.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/slugify.core/4.0.1/slugify.core.4.0.1.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/sqlitepclraw.core/2.1.4/sqlitepclraw.core.2.1.4.nupkg.sha512",
     "/Users/trongthuong96/.nuget/packages/stackexchange.redis/2.2.4/stackexchange.redis.2.2.4.nupkg.sha512",

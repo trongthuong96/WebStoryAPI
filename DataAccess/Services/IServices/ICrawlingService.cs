@@ -14,10 +14,11 @@ namespace DataAccess.Services.IServices
         // 69shuba
         Task<string> GetBook69shuba(string uri);
         Task<string> GetBookFanqie(string uri);
-        Task<ChapterDto> GetContentChap69shuba(int chineseBookId, short chapterIndex);
-        Task<ChapterDto> GetContentChapFanqie(string uriBook, int chineseBookId, short chapterIndex);
+        Task<ChapterDto> GetContentChap69shuba(int bookId, int chineseBookId, short chapterIndex);
+        Task<ChapterDto> GetContentChapFanqie(string uriBook, int bookId, int chineseBookId, short chapterIndex);
         Task GetListChap69shuba(string urlChap, int bookId, int chineseBookId);
         Task GetListChapFanqie(string uriInfo, int bookId, int chineseBookId);
+        Task<List<string>> GetBook69shubaAuto(string uri, int beginNumber, int endNumber);
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using Models;
 using Models.Dto;
+using Models.Dto.Chapter;
 using Models.Dto.Crawling;
 
 namespace DataAccess.Services.IServices
@@ -16,7 +17,8 @@ namespace DataAccess.Services.IServices
         Task<IEnumerable<ChapterDto>?> GetChaptersByBookIdAsync(int bookId);
         Task AddAndUpdateChaptersCrawl(int bookId, int chineseBookId, IEnumerable<ChapterCrawllDto> chapterCrawlls);
         Task<Chapter> AddAndUpdateChaptersContentCrawl(int chineseBookId, short chapterIndex);
-        Task<IEnumerable<ChapterDto>?> GetChaptersByChineseBookIdAsync(int chineseBookId);
+        Task<IEnumerable<ChapterListDto>?> GetChaptersByChineseBookIdAsync(int chineseBookId);
+        Task<ChapterDto?> GetChapterConentAsync(int bookId, int chineseBookId, short chapterIndex);
     }
 }
 

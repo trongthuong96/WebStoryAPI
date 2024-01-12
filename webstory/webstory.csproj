@@ -27,7 +27,6 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="7.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.2.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.55" />
-    <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="DuoVia.FuzzyStrings" Version="2.1.0" />
   </ItemGroup>
 

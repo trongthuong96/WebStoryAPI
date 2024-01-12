@@ -29,7 +29,9 @@ namespace webstory.Controllers
                 {
                     if (!string.IsNullOrEmpty(request.ChineseText))
                     {
-                        return TranslatorEngine.ChineseToVietPhraseOneMeaningForBatch(request.ChineseText, 0, 0, true);
+                        string translation = TranslatorEngine.ChineseToVietPhraseOneMeaningForBatch(request.ChineseText, 0, 0, true);
+                     
+                        return translation;
                     }
                     return string.Empty;
                 }

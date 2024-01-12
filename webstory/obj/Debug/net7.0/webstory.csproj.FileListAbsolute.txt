@@ -139,7 +139,6 @@
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/Azure.Core.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/Azure.Identity.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/Microsoft.SqlServer.Types.dll
-/Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/SeleniumExtras.WaitHelpers.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/DuoVia.FuzzyStrings.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/EFCore.BulkExtensions.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/EntityFrameworkCore.SqlServer.HierarchyId.dll
@@ -192,7 +191,6 @@
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/Pipelines.Sockets.Unofficial.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/Pomelo.EntityFrameworkCore.MySql.dll
-/Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/WebDriver.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/Slugify.Core.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/SQLitePCLRaw.core.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/webstory/bin/Debug/net7.0/StackExchange.Redis.dll

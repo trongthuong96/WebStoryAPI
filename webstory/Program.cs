@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Azure.Core;
 using DataAccess.AutoMapper;
 using DataAccess.Data;
 using DataAccess.Middleware;
@@ -8,9 +9,12 @@ using DataAccess.Services;
 using DataAccess.Services.IServices;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Models;
@@ -45,6 +49,8 @@ builder.Services.AddScoped<ICrawlingService, CrawlingService>();
 builder.Services.AddScoped<IBookTagRepository, BookTagRepository>();
 builder.Services.AddScoped<IBookBookTagRepository, BookBookTagRepository>();
 
+builder.Services.AddScoped<IBookReadingRepository, BookReadingRepository>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -56,7 +62,9 @@ builder.Services.AddHttpClient();
 
 // sql
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Scoped);
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+}, ServiceLifetime.Scoped);
 
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -132,26 +140,6 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.InstanceName = "BookViews";
 });
 
-// cors
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy(name: SD.CORSNAME, policy =>
-//    {
-//        policy.WithOrigins
-//                (
-//                    "https://truyenmoi.click",
-//                    "https://api-url.truyenmoi.click",
-//                    "http://api.truyenmoi.click",
-//                    "http://truyenmoi.click",
-//                    "https://www.truyenmoi.click",
-//                    "https://webbookangular-git-main-trongthuong96s-projects-80c5b89c.vercel.app"
-//                )
-//            .AllowAnyHeader()
-//            .AllowAnyMethod()
-//            .AllowCredentials();
-//    });
-//});
-
 // encoding
 builder.Services.AddMvc().AddJsonOptions(options =>
 {
@@ -165,14 +153,14 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 //});
 
 // CRFS
-//builder.Services.AddAntiforgery(options =>
-//{
-//    options.HeaderName = "X-CSRF-TOKEN";
-//});
+builder.Services.AddAntiforgery(options =>
+{
+    options.HeaderName = "X-XSRF-TOKEN";
+});
 
 //builder.Services.AddControllersWithViews(options =>
 //{
-//    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+//    options.Filters.Add(new ValidateAntiForgeryTokenAttribute());
 //});
 
 var app = builder.Build();
@@ -202,24 +190,50 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
+// CRFS_TOKEN
+//var antiforgery = app.Services.GetRequiredService<IAntiforgery>();
 
-// cors
-app.UseCors(builder => builder
-    .WithOrigins("https://truyenmoi.click",
-                    "https://api-url.truyenmoi.click",
-                    "http://api.truyenmoi.click",
-                    "http://truyenmoi.click",
-                    "https://www.truyenmoi.click",
-                    "https://webbookangular-git-main-trongthuong96s-projects-80c5b89c.vercel.app")
-    .WithMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-    .AllowAnyHeader()
-    .AllowCredentials()
-);
+//app.Use((context, next) =>
+//{
+//    var requestPath = context.Request.Path.Value;
 
-// Thêm middleware vào pipeline
-app.UseMiddleware<ViewsCounterMiddleware>();
-app.UseMiddleware<SignatureVerificationMiddleware>();
+//    //if (string.Equals(requestPath, "/api/**", StringComparison.OrdinalIgnoreCase)
+//    //    || string.Equals(requestPath, "/index.html", StringComparison.OrdinalIgnoreCase))
+//    //{
+//    var tokenSet = antiforgery.GetAndStoreTokens(context);
+//    context.Response.Cookies.Append("XSRF-TOKEN", tokenSet.RequestToken!,
+//        new CookieOptions { HttpOnly = false, SameSite = SameSiteMode.None });
+//    //}
+
+//    return next(context);
+//});
+
+//app.Use(async (context, next) =>
+//{
+//    var antiforgery = context.RequestServices.GetRequiredService<IAntiforgery>();
+
+//    var tokens = antiforgery.GetAndStoreTokens(context);
+
+//    // Lưu Request token vào session
+//    context.Session.SetString("XSRF-TOKEN", tokens.RequestToken!);
+
+//    await next();
+//});
+
+//app.Use(async (context, next) =>
+//{
+//    if (context.Request.Headers.ContainsKey("X-App-Source"))
+//    {
+//        var antiforgery = context.RequestServices.GetService<IAntiforgery>();
+//        var tokens = antiforgery.GetAndStoreTokens(context);
+//        Console.WriteLine("Xin chao");
+//        // Loại bỏ token từ yêu cầu
+//        context.Request.Headers.Remove("X-CSRF-TOKEN");
+//    }
+
+//    await next();
+//});
+
 
 // Thêm middleware chuyển hướng từ HTTP sang HTTPS
 //app.Use(async (context, next) =>
@@ -237,33 +251,26 @@ app.UseMiddleware<SignatureVerificationMiddleware>();
 //    }
 //});
 
-// CRFS_TOKEN
-//var antiforgery = app.Services.GetRequiredService<IAntiforgery>();
-//app.Use(async (context, next) =>
-//{
-//    var requestPath = context.Request.Path.Value;
-//    // Đặt thời hạn cho cookie (ví dụ: 1 giờ)
-//    var expires = DateTime.UtcNow.AddSeconds(60);
+// cors
+app.UseCors(builder => builder
+    .WithOrigins("https://truyenmoi.click",
+                    "https://www.truyenmoi.click",
+                     "https://api-url.truyenmoi.click",
+                      "https://api.truyenmoi.click",
+                      "http://localhost:4200",
+                    "https://webbookangular-git-main-trongthuong96s-projects-80c5b89c.vercel.app")
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+);
 
-//    var tokenSet = antiforgery.GetAndStoreTokens(context);
-
-//    context.Response.Cookies.Append("XSRF-TOKEN", tokenSet.RequestToken!, new CookieOptions
-//    {
-//        HttpOnly = false,
-//        Expires = expires,
-//        SameSite = SameSiteMode.None,  // Hoặc SameSiteMode.Strict
-//        Secure = true,  // Nếu sử dụng HTTPS
-//        Domain = "truyenmoi.click"
-//    });
-
-//    await next();
-//});
+// Thêm middleware vào pipeline
+app.UseMiddleware<ViewsCounterMiddleware>();
+//app.UseMiddleware<SignatureVerificationMiddleware>();
+//app.UseHeaderCheck();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();
-

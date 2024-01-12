@@ -201,30 +201,31 @@ namespace DataAccess.Repository
 
         // find book author
         // Orderby updatedAt
-        public async Task<IEnumerable<BooksDto?>> GetBooksAuthorAsync(int authorId, int page, int pageSize)
+        public async Task<IEnumerable<BookListHomeDto?>> GetBooksAuthorAsync(int authorId, int page, int pageSize)
         {
             var books = await _context.Books
                 .Where(b => b.AuthorId == authorId)
-                .Select(b => new BooksDto
+                .Select(b => new BookListHomeDto
                 {
-                    Id = b.Id,
+                    //Id = b.Id,
                     Title = b.Title,
                     Slug = b.Slug,
-                    Status = b.Status,
-                    Description = b.Description,
-                    ApplicationUserUserName = b.ApplicationUser.UserName,
-                    CoverImage = b.CoverImage,
-                    CreatedAt = b.CreatedAt,
+                    //Status = b.Status,
+                    //Description = b.Description,
+                    //ApplicationUserUserName = b.ApplicationUser.UserName,
+                    //CoverImage = b.CoverImage,
+                    //CreatedAt = b.CreatedAt,
                     UpdatedAt = b.UpdatedAt,
-                    Views = b.Views,
-                    AuthorName = b.Author.Name,
+                    //Views = b.Views,
+                    //AuthorName = b.Author.Name,
                     Genres = b.GenreBooks.Select(bg => new GenreDto
                     {
                         Id = bg.Genre.Id,
                         Name = bg.Genre.Name,
                         Description = bg.Genre.Description
                     }).ToList()
-                })                .OrderByDescending(b => b.UpdatedAt)
+                })
+                .OrderByDescending(b => b.UpdatedAt)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync(); // Thêm phần này để chuyển kết quả thành một danh sách
@@ -295,23 +296,23 @@ namespace DataAccess.Repository
         //}
 
         // find book user
-        public async Task<IEnumerable<BooksDto?>> GetBooksUserAsync(string userId, int page, int pageSize)
+        public async Task<IEnumerable<BookListHomeDto?>> GetBooksUserAsync(string userId, int page, int pageSize)
         {
             var books = await _context.Books
                 .Where(b => b.UserId == userId)
-                .Select(b => new BooksDto
+                .Select(b => new BookListHomeDto
                 {
-                    Id = b.Id,
+                    //Id = b.Id,
                     Title = b.Title,
                     Slug = b.Slug,
-                    Status = b.Status,
-                    Description = b.Description,
-                    ApplicationUserUserName = b.ApplicationUser.UserName,
-                    CoverImage = b.CoverImage,
-                    CreatedAt = b.CreatedAt,
+                    //Status = b.Status,
+                    //Description = b.Description,
+                    //ApplicationUserUserName = b.ApplicationUser.UserName,
+                    //CoverImage = b.CoverImage,
+                    //CreatedAt = b.CreatedAt,
                     UpdatedAt = b.UpdatedAt,
-                    Views = b.Views,
-                    AuthorName = b.Author.Name,
+                    //Views = b.Views,
+                    //AuthorName = b.Author.Name,
                     Genres = b.GenreBooks.Select(bg => new GenreDto
                     {
                         Id = bg.Genre.Id,
@@ -399,22 +400,22 @@ namespace DataAccess.Repository
         }
 
         // Orderby updatedAt
-        public async Task<IEnumerable<BooksDto?>> GetBooksOrderByUpdatedAtAsync(int page, int pageSize)
+        public async Task<IEnumerable<BookListHomeDto?>> GetBooksOrderByUpdatedAtAsync(int page, int pageSize)
         {
             var books = await _context.Books
-                .Select(b => new BooksDto
+                .Select(b => new BookListHomeDto
                 {
-                    Id = b.Id,
+                    //Id = b.Id,
                     Title = b.Title,
                     Slug = b.Slug,
                     Status = b.Status,
-                    Description = b.Description,
-                    ApplicationUserUserName = b.ApplicationUser.UserName!,
+                    //Description = b.Description,
+                    //ApplicationUserUserName = b.ApplicationUser.UserName!,
                     CoverImage = b.CoverImage,
                     CreatedAt = b.CreatedAt,
                     UpdatedAt = b.UpdatedAt,
                     Views = b.Views,
-                    AuthorName = b.Author.Name,
+                    //AuthorName = b.Author.Name,
                     ChapterLast = b.Chapters!
                                         .OrderByDescending(chap => chap.ChapterIndex)
                                         .Select(chap => new ChapterLast { Id = chap.Id, ChapterIndex = chap.ChapterIndex, ChapNumber = chap.ChapNumber, Title = chap.Title })
@@ -518,32 +519,32 @@ namespace DataAccess.Repository
 
 
 
-        public async Task<IEnumerable<BooksDto?>> GetBooksOrderByViewsAtAsync(int page, int pageSize)
+        public async Task<IEnumerable<BookListHomeDto?>> GetBooksOrderByViewsAtAsync(int page, int pageSize)
         {
             var books = await _context.Books
-                .Select(b => new BooksDto
+                .Select(b => new BookListHomeDto
                 {
-                    Id = b.Id,
+                    //Id = b.Id,
                     Title = b.Title,
                     Slug = b.Slug,
                     Status = b.Status,
-                    Description = b.Description,
-                    ApplicationUserUserName = b.ApplicationUser.UserName!,
+                    //Description = b.Description,
+                    //ApplicationUserUserName = b.ApplicationUser.UserName!,
                     CoverImage = b.CoverImage,
-                    CreatedAt = b.CreatedAt,
-                    UpdatedAt = b.UpdatedAt,
+                    //CreatedAt = b.CreatedAt,
+                    //UpdatedAt = b.UpdatedAt,
                     Views = b.Views,
-                    AuthorName = b.Author.Name,
+                    //AuthorName = b.Author.Name,
                     ChapterLast = b.Chapters!
                                         .OrderByDescending(chap => chap.ChapterIndex)
                                         .Select(chap => new ChapterLast { Id = chap.Id, ChapterIndex = chap.ChapterIndex, ChapNumber = chap.ChapNumber, Title = chap.Title })
                                         .FirstOrDefault()!,
-                    Genres = b.GenreBooks!.Select(bg => new GenreDto
-                    {
-                        Id = bg.Genre.Id,
-                        Name = bg.Genre.Name,
-                        Description = bg.Genre.Description
-                    }).ToList()
+                    //Genres = b.GenreBooks!.Select(bg => new GenreDto
+                    //{
+                    //    Id = bg.Genre.Id,
+                    //    Name = bg.Genre.Name,
+                    //    Description = bg.Genre.Description
+                    //}).ToList()
                 })
                 .OrderByDescending(b => b.Views)
                 .Skip((page - 1) * pageSize)
@@ -1040,33 +1041,33 @@ namespace DataAccess.Repository
         //    }
         //}
 
-        public async Task<IEnumerable<BooksDto?>> GetBooksStatusCompleteAsync(int page, int pageSize)
+        public async Task<IEnumerable<BookListHomeDto?>> GetBooksStatusCompleteAsync(int page, int pageSize)
         {
             var books = await _context.Books
                 .Where(b => b.Status == 1)
-                .Select(b => new BooksDto
+                .Select(b => new BookListHomeDto
                 {
-                    Id = b.Id,
+                    //Id = b.Id,
                     Title = b.Title,
                     Slug = b.Slug,
-                    Status = b.Status,
-                    Description = b.Description,
-                    ApplicationUserUserName = b.ApplicationUser.UserName!,
+                    //Status = b.Status,
+                    //Description = b.Description,
+                    //ApplicationUserUserName = b.ApplicationUser.UserName!,
                     CoverImage = b.CoverImage,
-                    CreatedAt = b.CreatedAt,
+                    //CreatedAt = b.CreatedAt,
                     UpdatedAt = b.UpdatedAt,
-                    Views = b.Views,
-                    AuthorName = b.Author.Name,
+                    //Views = b.Views,
+                    //AuthorName = b.Author.Name,
                     ChapterLast = b.Chapters!
                                         .OrderByDescending(chap => chap.ChapterIndex)
                                         .Select(chap => new ChapterLast { Id = chap.Id, ChapterIndex = chap.ChapterIndex, ChapNumber = chap.ChapNumber, Title = chap.Title })
                                         .FirstOrDefault()!,
-                    Genres = b.GenreBooks!.Select(bg => new GenreDto
-                    {
-                        Id = bg.Genre.Id,
-                        Name = bg.Genre.Name,
-                        Description = bg.Genre.Description
-                    }).ToList()
+                    //Genres = b.GenreBooks!.Select(bg => new GenreDto
+                    //{
+                    //    Id = bg.Genre.Id,
+                    //    Name = bg.Genre.Name,
+                    //    Description = bg.Genre.Description
+                    //}).ToList()
                 })
                 .OrderByDescending(b => b.UpdatedAt)
                 .Skip((page - 1) * pageSize)

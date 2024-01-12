@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using Utility;
 
 namespace DataAccess.Middleware
 {
@@ -21,11 +22,11 @@ namespace DataAccess.Middleware
             // Lấy dữ liệu từ yêu cầu
             //var requestData = await GetRequestData(context.Request);
             // Lấy thời gian hiện tại
-            DateTime currentTime = DateTime.Now;
+            DateTime currentTime = DateTime.UtcNow;
 
             // Lấy số phút
-            int minutes = currentTime.Minute + 1026;
-            var requestData = minutes.ToString();
+            int hour = currentTime.Hour + 1026;
+            var requestData = hour.ToString();
 
             // Lấy chữ ký từ yêu cầu
             var signature = context.Request.Headers["X-Signature"].FirstOrDefault();
@@ -57,7 +58,7 @@ namespace DataAccess.Middleware
             // Sử dụng khóa bí mật chia sẻ (shared secret key) giữa máy chủ và client
 
             // Trong thực tế, bạn nên lưu khóa bí mật một cách an toàn và không chia sẻ nó trong mã nguồn
-            string sharedSecretKey = "85d1a303708926b1c1598289020565e9eb3d9918ae87847f158833862171dee3";
+            string sharedSecretKey = SD.SHAREDSECRETKEY;
 
             // Thực hiện hash dữ liệu sử dụng khóa bí mật
             string hashedData = ComputeHash(data, sharedSecretKey);

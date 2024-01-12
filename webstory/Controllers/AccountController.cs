@@ -15,8 +15,6 @@ using Utility;
 
 namespace webstory.Controllers
 {
-    //[AutoValidateAntiforgeryToken]
-    //[EnableCors(SD.CORSNAME)]
     [Route("api/[controller]")]
     public class AccountController : Controller
     {

@@ -1,24 +1,21 @@
-﻿using System.Net;
+﻿using System.IO.Compression;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using AutoMapper;
-using Azure.Core;
 using DataAccess.Repository.IRepository;
 using DataAccess.Services.IServices;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Distributed;
 using Models;
 using Models.Dto;
 using Models.Dto.Crawling;
 using Models.Dto.Crawling.MeTruyenChu;
 using Models.Dto.Crawling.shuba;
 using Newtonsoft.Json;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 using Utility;
 
 namespace DataAccess.Services
@@ -34,6 +31,7 @@ namespace DataAccess.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IChapterService _chapterService;
         private readonly IChineseBookRepository _chineseBookRepository;
+        private readonly IDistributedCache _distributedCache;
 
         public CrawlingService
             (
@@ -44,7 +42,8 @@ namespace DataAccess.Services
                 IHttpContextAccessor httpContextAccessor,
                 IBookService bookService,
                 IChapterService chapterService,
-                IChineseBookRepository chineseBookRepository
+                IChineseBookRepository chineseBookRepository,
+                IDistributedCache distributedCache
             )
         {
             _httpContextAccessor = httpContextAccessor;
@@ -57,6 +56,7 @@ namespace DataAccess.Services
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _chapterService = chapterService;
             _chineseBookRepository = chineseBookRepository;
+            _distributedCache = distributedCache;
         }
 
         public async Task<(string, string)> GetBookMeTruyenCV(LinksDto links)
@@ -463,6 +463,83 @@ namespace DataAccess.Services
             }
         }
 
+        public async Task<List<string>> GetBook69shubaAuto(string uri, int beginNumber, int endNumber)
+        {
+            try
+            {
+                var uriTemp = uri.Split("/")[2];
+                if (!uriTemp.Equals(SD.LINK69XINSHU) && !uriTemp.Equals(SD.LINK69SHU))
+                {
+                    throw new NotFoundException();
+                }
+
+                string u = uri + "/" + beginNumber + "/";
+
+                HttpClient client = new HttpClient();
+
+                client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
+                var uriList = new List<string>();
+
+                if (beginNumber > endNumber)
+                {
+                    endNumber = beginNumber;
+                }
+
+                for (int j = beginNumber; j <= endNumber; j++)
+                {     
+
+                    HttpResponseMessage response = await client.GetAsync(u);
+
+                    response.Content.Headers.ContentType.MediaType = "text/html";
+
+                    string html = "";
+
+                    using (var stream = await response.Content.ReadAsStreamAsync())
+                    {
+                        using (var gzip = new GZipStream(stream, CompressionMode.Decompress))
+                        {
+                            using (var reader = new StreamReader(gzip, Encoding.GetEncoding("GB2312")))
+                            {
+                                html = await reader.ReadToEndAsync();
+
+                                // //*[@id="article_list_content"]
+                                var doc = new HtmlDocument();
+                                doc.LoadHtml(html);
+
+                                var ulNode = doc.DocumentNode.SelectSingleNode("//*[@id=\"article_list_content\"]");
+                                
+
+                                if (ulNode != null)
+                                {
+                                    var aNode = ulNode.SelectNodes("//*[@id=\"article_list_content\"]/li/a");
+
+                                    if (aNode != null)
+                                    {
+                                        for (int i = 0; i < aNode.Count(); i++)
+                                        {
+                                            // Add the inner text of each <span> to the list
+                                            string uriTemp1 = aNode[i].Attributes["href"].Value;
+                                            var slug = await GetBook69shuba(uriTemp1);
+                                            uriList.Add(slug);
+                                        }
+                                    }
+                                }                                
+                            }
+                        }
+                    }
+                }
+                string countList = uriList.Count().ToString();
+                uriList.Add(countList);
+                return uriList;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
         /// <summary>
         /// https://www.69shuba.com/book/43246.htm
         /// </summary>
@@ -691,8 +768,12 @@ namespace DataAccess.Services
                             }
                         }
 
-
                         await _chapterService.AddAndUpdateChaptersCrawl(bookId, chineseBookId, chapterCrawlls);
+
+                        //string cacheKey = $"chapters_{chineseBookId}";
+
+                        //// Xóa mục khỏi Redis cache
+                        //await _distributedCache.RemoveAsync(cacheKey);
                     }
                 }
             }
@@ -709,7 +790,7 @@ namespace DataAccess.Services
         /// <returns></returns>
         /// <exception cref="Utility.NotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public async Task<ChapterDto> GetContentChap69shuba(int chineseBookId, short chapterIndex)
+        public async Task<ChapterDto> GetContentChap69shuba(int bookId, int chineseBookId, short chapterIndex)
         {
             try
             {
@@ -797,14 +878,14 @@ namespace DataAccess.Services
 
                             }
                         }
-                        return await _chapterRepository.GetChapterByChapterConentCrawlAsync(chineseBookId, chapterIndex);
+                        return await _chapterService.GetChapterConentAsync(bookId, chineseBookId, chapterIndex);
                     }
 
                 }
                 else
                 {
 
-                    return await _chapterRepository.GetChapterByChapterConentCrawlAsync(chineseBookId, chapterIndex);
+                    return await _chapterService.GetChapterConentAsync(bookId, chineseBookId, chapterIndex);
                 }
 
             }
@@ -936,11 +1017,16 @@ namespace DataAccess.Services
 
                                 if (genreNodes != null)
                                 {
-                                    foreach (var node in genreNodes)
+                                    for (int i = 0; i < genreNodes.Count(); i++)
                                     {
                                         // Add the inner text of each <span> to the list
-                                        bookCrawl.ChineseGenreName.Add(node.InnerText.Trim());
+                                        bookCrawl.ChineseGenreName.Add(genreNodes[i].InnerText.Trim());
                                     }
+                                    //foreach (var node in genreNodes)
+                                    //{
+                                    //    // Add the inner text of each <span> to the list
+                                    //    bookCrawl.ChineseGenreName.Add(node.InnerText.Trim());
+                                    //}
                                 }
                             }
 
@@ -980,6 +1066,14 @@ namespace DataAccess.Services
             }
         }
 
+        /// <summary>
+        /// List chap fanqie
+        /// </summary>
+        /// <param name="uriInfo"></param>
+        /// <param name="bookId"></param>
+        /// <param name="chineseBookId"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task GetListChapFanqie(string uriInfo, int bookId, int chineseBookId)
         {
             try
@@ -1045,8 +1139,12 @@ namespace DataAccess.Services
                                 // Chờ tất cả các nhiệm vụ bất đồng bộ hoàn thành
                                 await Task.WhenAll(tasks);
 
-
                                 await _chapterService.AddAndUpdateChaptersCrawl(bookId, chineseBookId, chapterCrawlls);
+
+                                //string cacheKey = $"chapters_{chineseBookId}";
+
+                                //// Xóa mục khỏi Redis cache
+                                //await _distributedCache.RemoveAsync(cacheKey);
                             }
                         }
                     }
@@ -1069,7 +1167,7 @@ namespace DataAccess.Services
         /// <returns></returns>
         /// <exception cref="Utility.NotFoundException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public async Task<ChapterDto> GetContentChapFanqie(string uriBook, int chineseBookId, short chapterIndex)
+        public async Task<ChapterDto> GetContentChapFanqie(string uriBook,int bookId, int chineseBookId, short chapterIndex)
         {
             try
             {
@@ -1151,11 +1249,11 @@ namespace DataAccess.Services
                         }
                     }
 
-                    return await _chapterRepository.GetChapterByChapterConentCrawlAsync(chineseBookId, chapterIndex);
+                    return await _chapterService.GetChapterConentAsync(bookId, chineseBookId, chapterIndex);
                 }
                 else
                 {
-                    return await _chapterRepository.GetChapterByChapterConentCrawlAsync(chineseBookId, chapterIndex);
+                    return await _chapterService.GetChapterConentAsync(bookId, chineseBookId, chapterIndex);
                 }
             }
             catch (Exception ex)

@@ -59,14 +59,14 @@ namespace DataAccess.Services
         }
 
         // order by updatedAt
-        public async Task<IEnumerable<BooksDto?>> GetBooksOrderByUpdatedAtAsync(int page, int pageSize)
+        public async Task<IEnumerable<BookListHomeDto?>> GetBooksOrderByUpdatedAtAsync(int page, int pageSize)
         {
             var books = await _bookRepository.GetBooksOrderByUpdatedAtAsync(page, pageSize);
             return books;
         }
 
         // order by views
-        public async Task<IEnumerable<BooksDto?>> GetBooksOrderByViewsAtAsync(int page, int pageSize)
+        public async Task<IEnumerable<BookListHomeDto?>> GetBooksOrderByViewsAtAsync(int page, int pageSize)
         {
             var books = await _bookRepository.GetBooksOrderByViewsAtAsync(page, pageSize);
             return books;
@@ -80,21 +80,21 @@ namespace DataAccess.Services
         }
 
         // get book by status complete
-        public async Task<IEnumerable<BooksDto?>> GetBooksStatusCompleteAsync(int page, int pageSize)
+        public async Task<IEnumerable<BookListHomeDto?>> GetBooksStatusCompleteAsync(int page, int pageSize)
         {
             var books = await _bookRepository.GetBooksStatusCompleteAsync(page, pageSize);
             return books;
         }
 
         // get book author
-        public async Task<IEnumerable<BooksDto?>> GetBooksAuthorAsync(int authorId, int page, int pageSize)
+        public async Task<IEnumerable<BookListHomeDto?>> GetBooksAuthorAsync(int authorId, int page, int pageSize)
         {
             var books = await _bookRepository.GetBooksAuthorAsync(authorId, page, pageSize);
             return books;
         }
 
         // get book user
-        public async Task<IEnumerable<BooksDto?>> GetBooksUserAsync(string userId, int page, int pageSize)
+        public async Task<IEnumerable<BookListHomeDto?>> GetBooksUserAsync(string userId, int page, int pageSize)
         {
             var books = await _bookRepository.GetBooksUserAsync(userId, page, pageSize);
             return books;
@@ -497,7 +497,7 @@ namespace DataAccess.Services
                 }
                 else
                 {
-                    book = await _bookRepository.FindSingleAsync(b => b.Slug == book.Slug);
+                    book = await _bookRepository.FindSingleAsync(b => b.Slug == slug);
 
                 }
 

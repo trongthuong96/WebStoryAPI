@@ -1,11 +1,15 @@
 ﻿using System.Security.Claims;
+using System.Text.Json;
 using AutoMapper;
 using DataAccess.Repository.IRepository;
 using DataAccess.Services.IServices;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Distributed;
 using Models;
 using Models.Dto;
+using Models.Dto.Chapter;
 using Models.Dto.Crawling;
+using Newtonsoft.Json;
 using Utility;
 
 namespace DataAccess.Services
@@ -17,19 +21,25 @@ namespace DataAccess.Services
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IBookRepository _bookRepository;
+        private readonly IDistributedCache _distributedCache;
+        private readonly IBookReadingRepository _bookReadingRepository;
 
         public ChapterService
             (
                 IChapterRepository chapterRepository,
                 IMapper mapper,
                 IHttpContextAccessor httpContextAccessor,
-                IBookRepository bookRepository
+                IBookRepository bookRepository,
+                IDistributedCache distributedCache,
+                IBookReadingRepository bookReadingRepository
             )
         {
             _chapterRepository = chapterRepository;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             _bookRepository = bookRepository;
+            _distributedCache = distributedCache;
+            _bookReadingRepository = bookReadingRepository;
         }
 
         public async Task<ChapterDto> GetChapterByIdAsync(long id)
@@ -50,11 +60,63 @@ namespace DataAccess.Services
             throw new NotImplementedException();
         }
 
+        // Get list chap by book id
         public async Task<IEnumerable<ChapterDto>?> GetChaptersByBookIdAsync(int bookId)
         {
             var chapters = await _chapterRepository.GetChaptersByBookIdAsync(bookId);
             return _mapper.Map<IEnumerable<ChapterDto>>(chapters);
         }
+
+        // Get chapter content
+        public async Task<ChapterDto?> GetChapterConentAsync(int bookId, int chineseBookId, short chapterIndex)
+        {
+            var chapter = await _chapterRepository.GetChapterConentAsync(bookId, chineseBookId, chapterIndex);
+
+            // Lấy thông tin user hiện tại từ HttpContextAccessor
+            var userId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (chapter != null && userId != null)
+            {
+                int? tempChineseBookId = null;
+
+                if (chineseBookId > 0)
+                {
+                    tempChineseBookId = chineseBookId;
+                }
+
+                var bookReading = await _bookReadingRepository.FindSingleAsync(br => br.UserId == userId && br.BookId == bookId && br.ChineseBookId == tempChineseBookId);
+
+                if (bookReading == null)
+                {
+                    bookReading = new BookReading();
+                    bookReading.BookId = bookId;
+                    bookReading.ChineseBookId = tempChineseBookId;
+                    bookReading.ChapterIndex = chapter.ChapterIndex;
+                    bookReading.ChapNumber = chapter.ChapNumber;
+                    bookReading.ChapTitle = chapter.Title;
+                    bookReading.BookSlug = SD.ConvertToSlug(chapter.BookTitle);
+                    bookReading.CreatedAt = DateTime.UtcNow;
+                    bookReading.UpdatedAt = DateTime.UtcNow;
+                    bookReading.UserId = userId;
+
+                    // add book reading
+                    _bookReadingRepository.AddAsync(bookReading);
+                }
+                else
+                {
+                    bookReading.UpdatedAt = DateTime.UtcNow;
+                    bookReading.ChapterIndex = chapter.ChapterIndex;
+                    bookReading.ChapNumber = chapter.ChapNumber;
+                    bookReading.ChapTitle = chapter.Title;
+
+                    // update book reading
+                    _bookReadingRepository.UpdateAsync(bookReading);
+                }
+            }
+
+            return chapter;
+        }
+
 
         public async Task AddChapter(ChapterCreateDto chapterCreateDto)
         {
@@ -163,10 +225,16 @@ namespace DataAccess.Services
                     });
 
                     // Sử dụng List<T> thay vì Task.WhenAll vì Parallel.ForEachAsync hoạt động bất đồng bộ.
+                    //var batchSize = 2000;
 
+                    //for (var i = 0; i < chapters.Count; i += batchSize)
+                    //{
+                    //    var batch = chapters.Skip(i).Take(batchSize).ToList();
+                    //    await _chapterRepository.AddRangeAsync(batch);
+                    //}
 
                     // Sử dụng Entity Framework Plus
-                    await _chapterRepository.AddOrUpdateRangeAsync(chapters.ToList());
+                    await _chapterRepository.BulkAddRangeAsync(chapters.ToList());
 
                 }
 
@@ -212,16 +280,20 @@ namespace DataAccess.Services
                         {
                             var temp = chaptersDataList.FirstOrDefault(c => c.BookId == chap.BookId && c.ChineseBookId == chap.ChineseBookId && c.ChapterIndex == chap.ChapterIndex);
 
-                            if (temp != null)
-                            {
-                                temp.Title = chap.Title;
-                                temp.ChapNumber = chap.ChapNumber;
-                                temp.ChineseSite = chap.ChineseSite;
-                            }
+                            //if (temp != null)
+                            //{
+                            //    temp.Title = chap.Title;
+                            //    temp.ChapNumber = chap.ChapNumber;
+                            //    temp.ChineseSite = chap.ChineseSite;
+                            //}
 
                             lock (chapsRead)
                             {
-                                chapsRead.Add(temp == null ? chap : temp);
+                                if (temp == null)
+                                {
+                                    chapsRead.Add(chap);
+                                }
+                                //chapsRead.Add(temp == null ? chap : temp);
                             }
                         }
                         catch (Exception ex)
@@ -232,9 +304,22 @@ namespace DataAccess.Services
                         return new ValueTask();
                     });
 
+                    //var batchSize = 2000;
+
+                    //for (var i = 0; i < chapsRead.Count; i += batchSize)
+                    //{
+                    //    var batch = chapsRead.Skip(i).Take(batchSize).ToList();
+                    //    await _chapterRepository.AddRangeAsync(batch);
+                    //}
 
                     // Tiếp tục xử lý sau khi tất cả công việc bất đồng bộ hoàn tất
-                    await _chapterRepository.AddOrUpdateRangeAsync(chapsRead.ToList());
+                    await _chapterRepository.BulkAddRangeAsync(chapsRead.ToList());
+
+                    var book = await _bookRepository.GetByIdAsync(bookId);
+
+                    book.UpdatedAt = DateTime.UtcNow;
+
+                    _bookRepository.UpdateAsync(book);
                 }
             }
         }
@@ -345,13 +430,61 @@ namespace DataAccess.Services
         }
 
         // GET CHINESE BOOK ID
-        public async Task<IEnumerable<ChapterDto>?> GetChaptersByChineseBookIdAsync(int chineseBookId)
+        public async Task<IEnumerable<ChapterListDto>?> GetChaptersByChineseBookIdAsync(int chineseBookId)
         {
-            var chapters = await _chapterRepository.GetChaptersByChineseBookIdAsync(chineseBookId);
+            if (chineseBookId < 0)
+            {
+                return null;
+            }
 
-            return _mapper.Map<IEnumerable<ChapterDto>>(chapters);
+            var chaptersFromRepository = await _chapterRepository.GetChaptersByChineseBookIdAsync(chineseBookId);
 
+            return chaptersFromRepository;
         }
+
+        //public async Task<IEnumerable<ChapterListDto>?> GetChaptersByChineseBookIdAsync(int chineseBookId)
+        //{
+        //    if (chineseBookId < 0)
+        //    {
+        //        return null;
+        //    }
+
+        //    string cacheKey = $"chapters_{chineseBookId}";
+
+        //    // Check if data exists in Redis cache
+        //    var cachedData = await _distributedCache.GetStringAsync(cacheKey);
+
+        //    if (!string.IsNullOrEmpty(cachedData))
+        //    {
+        //        // If data exists in cache, deserialize and return it
+        //        return JsonConvert.DeserializeObject<IEnumerable<ChapterListDto>>(cachedData);
+        //    }
+        //    else
+        //    {
+        //        // If data doesn't exist in cache, retrieve it from the repository
+        //        var chaptersFromRepository = await _chapterRepository.GetChaptersByChineseBookIdAsync(chineseBookId);
+
+        //        if (chaptersFromRepository != null)
+        //        {
+        //            // Serialize the data to store in Redis cache
+        //            string serializedData = JsonConvert.SerializeObject(chaptersFromRepository);
+
+        //            // Save the data in Redis cache with an expiration time
+        //            var cacheOptions = new DistributedCacheEntryOptions
+        //            {
+        //                AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1) // Expires in 1 hour
+        //            };
+
+        //            await _distributedCache.SetStringAsync(cacheKey, serializedData, cacheOptions);
+
+        //            return chaptersFromRepository;
+        //        }
+        //        else
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //}
     }
 }
 

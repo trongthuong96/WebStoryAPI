@@ -16,11 +16,13 @@ namespace webstory.Controllers
 
         private readonly ICrawlingService _crawlingService;
         private readonly IChineseBookService _chineseBookService;
+        private readonly IChapterService _chapterService;
 
-        public CrawlingController(ICrawlingService crawlingService, IChineseBookService chineseBookService)
+        public CrawlingController(ICrawlingService crawlingService, IChineseBookService chineseBookService, IChapterService chapterService)
         {
             _crawlingService = crawlingService;
             _chineseBookService = chineseBookService;
+            _chapterService = chapterService;
         }
 
         // GET: api/values
@@ -54,6 +56,28 @@ namespace webstory.Controllers
         //}
 
         // POST api/book-listchap-crawl
+        [HttpPost("book-listchap-auto-crawl")]
+        public async Task<IActionResult> GetBookAndListChapterAutoCrawl([FromBody] UriDto uri, int beginNumber, int count)
+        {
+            var checkUri = uri.Uri.Split("/")[2].ToLower();
+            var uriList = new List<string>();
+            if (checkUri.Equals(SD.LINK69SHU) || checkUri.Equals(SD.LINK69XINSHU))
+            {
+                uriList = await _crawlingService.GetBook69shubaAuto(uri.Uri, beginNumber, count);
+            }
+            //else if (checkUri.Equals(SD.LINKFANQIE))
+            //{
+            //    slug = await _crawlingService.GetBookFanqie(uri.Uri);
+            //}
+            else
+            {
+                return NotFound();
+            }
+
+            return Ok(uriList);
+        }
+
+        // POST api/book-listchap-crawl
         [HttpPost("book-listchap-crawl")]
         public async Task<IActionResult> GetBookAndListChapterCrawl([FromBody] UriDto uri)
         {
@@ -81,13 +105,22 @@ namespace webstory.Controllers
         {
             try
             {
-                var chineseBook = await _chineseBookService.GetChineseBookById(data.chineseBookId);
+                var chapter = new ChapterDto();
+
+                if (data.ChineseBookId <= 0)
+                {
+                    chapter = await _chapterService.GetChapterConentAsync(data.BookId, data.ChineseBookId, data.ChapterIndex);
+
+                    return Ok(chapter);
+                }
+                
+                var chineseBook = await _chineseBookService.GetChineseBookById(data.ChineseBookId);
                 if (chineseBook == null)
                 {
                     return NotFound();
                 }
 
-                var chapter = new ChapterDto();
+                
 
                 var uri = chineseBook.ChineseSite!;
 
@@ -95,11 +128,11 @@ namespace webstory.Controllers
 
                 if (checkUri.Equals(SD.LINK69SHU) || checkUri.Equals(SD.LINK69XINSHU))
                 {
-                    chapter = await _crawlingService.GetContentChap69shuba(data.chineseBookId, data.chapterIndex);
+                    chapter = await _crawlingService.GetContentChap69shuba(data.BookId, data.ChineseBookId, data.ChapterIndex);
                 }
                 else if (checkUri.Equals(SD.LINKFANQIE))
                 {
-                    chapter = await _crawlingService.GetContentChapFanqie(chineseBook.ChineseSite!, data.chineseBookId, data.chapterIndex);
+                    chapter = await _crawlingService.GetContentChapFanqie(chineseBook.ChineseSite!, data.BookId, data.ChineseBookId, data.ChapterIndex);
                 }
 
                 return Ok(chapter);
@@ -173,10 +206,12 @@ namespace webstory.Controllers
         }
     }
 
+
     public class Data
     {
-        public int chineseBookId { get; set; }
-        public short chapterIndex { get; set; }
+        public int BookId { get; set; }
+        public int ChineseBookId { get; set; }
+        public short ChapterIndex { get; set; }
     }
 
     public class DataChap

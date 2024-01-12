@@ -1,6 +1,5 @@
 ﻿using DataAccess.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Dto;
@@ -11,8 +10,7 @@ using Utility;
 
 namespace webstory.Controllers
 {
-    //[ValidateAntiForgeryToken]
-    //[EnableCors(SD.CORSNAME)]
+    //[CustomValidateAntiForgeryToken]
     [Route("api/[controller]")]
     public class BookController : Controller
     {

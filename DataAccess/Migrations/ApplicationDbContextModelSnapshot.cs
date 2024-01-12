@@ -271,13 +271,13 @@ namespace DataAccess.Migrations
                         {
                             Id = "a2ea16da-c3fc-48fa-9a68-05dfe1623f7a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "04e6c019-5f7b-4bf3-8f00-9f0a4ebad198",
+                            ConcurrencyStamp = "4fcfc514-5737-4d05-8844-a2282fface36",
                             Email = "lienminh9697@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LIENMINH9697@GMAIL.COM",
                             NormalizedUserName = "LIENMINH9697@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOuE46fHz0+SJFGpmoIxaJi6tMOBYi6B1CBP1niwHlMiAwn/Hyuv+9a8UW9uDDyXFw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL1LiPTUT7OxFCAqxcf9D2fkLKckexDqn2LSknvceE6KNL7CF+dDbB1MaX1y3AMAUw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -287,14 +287,14 @@ namespace DataAccess.Migrations
                         {
                             Id = "a2ea16da-c3fc-48fa-9a68-0e1623f7a5df",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "71aebc66-b204-4a4f-a79d-dad088e11352",
+                            ConcurrencyStamp = "149440ae-987f-4939-b987-edb2d65ff3b9",
                             Email = "khac.123@gmail.com",
                             EmailConfirmed = true,
                             Fullname = "Khách Vãng Lai",
                             LockoutEnabled = false,
                             NormalizedEmail = "KHAC@123@GMAIL.COM",
                             NormalizedUserName = "KHAC.123@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDghCxfE95WtnqFegRt7qF3gkOAY+MMdbTggIPH8aNxu4D/rCAKgwzJ1HWKF849RJQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAAfJxNoTtjclsuIpPqBrx+H8QzYDMXuNQZPJqGhZHV6uGJwxBm0wikuJJwvopqEvA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -352,7 +352,7 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<short>("Status")
                         .HasColumnType("smallint");
@@ -375,6 +375,9 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("AuthorId");
 
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Books");
@@ -393,6 +396,55 @@ namespace DataAccess.Migrations
                     b.HasIndex("BookTagId");
 
                     b.ToTable("BookBookTags");
+                });
+
+            modelBuilder.Entity("Models.BookReading", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BookSlug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short>("ChapNumber")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("ChapTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short>("ChapterIndex")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("ChineseBookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("ChineseBookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BookReadings");
                 });
 
             modelBuilder.Entity("Models.BookTag", b =>
@@ -470,11 +522,11 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
+                    b.HasIndex("ChineseBookId", "ChapterIndex");
+
                     b.ToTable("Chapters", t =>
                         {
                             t.HasTrigger("UpdateBookUpdatedAt");
-
-                            t.HasTrigger("UpdateChapterIndex");
                         });
                 });
 
@@ -865,6 +917,31 @@ namespace DataAccess.Migrations
                     b.Navigation("BookTag");
                 });
 
+            modelBuilder.Entity("Models.BookReading", b =>
+                {
+                    b.HasOne("Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.ChineseBook", "ChineseBook")
+                        .WithMany()
+                        .HasForeignKey("ChineseBookId");
+
+                    b.HasOne("Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Book");
+
+                    b.Navigation("ChineseBook");
+                });
+
             modelBuilder.Entity("Models.Chapter", b =>
                 {
                     b.HasOne("Models.Book", "Book")
@@ -874,7 +951,7 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Models.ChineseBook", "ChineseBook")
-                        .WithMany()
+                        .WithMany("Chapters")
                         .HasForeignKey("ChineseBookId");
 
                     b.HasOne("Models.ApplicationUser", "ApplicationUser")
@@ -1053,6 +1130,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Models.Chapter", b =>
                 {
                     b.Navigation("UserBookmarks");
+                });
+
+            modelBuilder.Entity("Models.ChineseBook", b =>
+                {
+                    b.Navigation("Chapters");
                 });
 
             modelBuilder.Entity("Models.Genre", b =>

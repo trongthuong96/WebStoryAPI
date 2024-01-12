@@ -28,6 +28,7 @@ namespace DataAccess.Data
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<UserBookmark> UserBookmarks { get; set; }
         public DbSet<ChineseBook> ChineseBooks { get; set; }
+        public DbSet<BookReading> BookReadings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,6 +51,8 @@ namespace DataAccess.Data
                 .WithOne(b => b.Book)
                 .HasForeignKey(b => b.BookId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasIndex(b => b.Slug).IsUnique();
             });
 
             string userName = "lienminh9697@gmail.com";
@@ -168,11 +171,13 @@ namespace DataAccess.Data
             {
                 entity.ToTable(tb => tb.HasTrigger("UpdateBookUpdatedAt"));
 
-                entity.ToTable(tb => tb.HasTrigger("UpdateChapterIndex"));
-            });
-                
+                // entity.ToTable(tb => tb.HasTrigger("UpdateChapterIndex"));
 
-                     
+                entity.HasIndex(c => c.ChineseBookId);
+
+                // Đặt chỉ mục cho cả hai trường ChineseBookId và ChapterIndex
+                entity.HasIndex(c => new { c.ChineseBookId, c.ChapterIndex });
+            });
         }
     }
 }

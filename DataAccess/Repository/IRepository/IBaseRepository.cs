@@ -13,7 +13,10 @@ namespace DataAccess.Repository.IRepository
         Task<T> FindSingleAsync(Expression<Func<T, bool>> predicate);
         Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
         Task AddAsync(T entity);
+        Task AddRangeAsync(IEnumerable<T> entities);
+        Task BulkAddRangeAsync(IEnumerable<T> entities);
         Task UpdateAsync(T entity);
+        Task BulkUpdateRangeAsync(IEnumerable<T> entities);
         Task DeleteAsync(T entity);
         Task AddOrUpdateRangeAsync(IEnumerable<T> entities);
         Task<int> CountAsync(Expression<Func<T, bool>> predicate);

@@ -1,6 +1,13 @@
-﻿using System.Data;
+﻿using Microsoft.VisualBasic;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using Utility;
 
 namespace Utility
 {
@@ -1103,6 +1110,7 @@ namespace Utility
 
         public static string ChineseToVietPhraseOneMeaningForBatch(string chinese, int wrapType, int translationAlgorithm, bool prioritizedName)
         {
+            chinese = TranslatorEngine.StandardizeInputForProxy(chinese);
             DateTime arg_05_0 = DateTime.Now;
             string text = "";
             StringBuilder stringBuilder = new StringBuilder();
@@ -1111,6 +1119,7 @@ namespace Utility
             int num2 = -1;
             int num3 = -1;
             int num4 = -1;
+            bool checkChinese = false;
             while (i <= num)
             {
                 bool flag = false;
@@ -1142,6 +1151,7 @@ namespace Utility
                                         }
                                     }
                                     flag = true;
+                                    checkChinese = true;
                                     i += j;
                                     break;
                                 }
@@ -1182,6 +1192,7 @@ namespace Utility
                                                 text += " ";
                                             }
                                             flag = true;
+                                            checkChinese = true;
                                             i += j;
                                             break;
                                         }
@@ -1227,9 +1238,28 @@ namespace Utility
                     }
                     else
                     {
-                        stringBuilder.Append(chinese[i]);
-                        text += chinese[i].ToString();
-                    }
+                        string lastTranslatedWord = chinese[i].ToString();
+
+                        if (
+                                checkChinese
+                                &&  !(lastTranslatedWord.EndsWith("\n") || lastTranslatedWord.EndsWith("\t") || lastTranslatedWord.EndsWith(".")
+                                || lastTranslatedWord.EndsWith("\"") || lastTranslatedWord.EndsWith("'") || lastTranslatedWord.EndsWith("?")
+                                || lastTranslatedWord.EndsWith("!") || lastTranslatedWord.EndsWith(".\" ") || lastTranslatedWord.EndsWith("?\" ")
+                                || lastTranslatedWord.EndsWith("!\" ") || lastTranslatedWord.EndsWith(":") || lastTranslatedWord.EndsWith("(")
+                                || lastTranslatedWord.EndsWith(" ") || lastTranslatedWord.EndsWith(",") || lastTranslatedWord.EndsWith(")")
+                                || lastTranslatedWord.EndsWith(": \"") || lastTranslatedWord.EndsWith(";")
+                                )
+                            )
+                        {
+                            stringBuilder.Append(" ").Append(lastTranslatedWord);
+                            text += chinese[i].ToString();
+                            checkChinese = false;
+                        }
+                        else
+                        {
+                            stringBuilder.Append(lastTranslatedWord);
+                            text += chinese[i].ToString();
+                        }                    }
                     i++;
                 }
             }
@@ -1878,7 +1908,6 @@ namespace Utility
             {
                 return;
             }
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             string name2 = CharsetDetector.DetectChineseCharset(dictionaryHistoryPath);
             using (TextReader textReader = new StreamReader(dictionaryHistoryPath, Encoding.GetEncoding(name2)))
             {
@@ -2280,6 +2309,11 @@ namespace Utility
             string text = TranslatorEngine.ToSimplified(original);
             string[] array = new string[]
             {
+                "。”",
+                "！”",
+                "？”",
+                "（",
+                "）",
                 "，",
                 "。",
                 "：",
@@ -2299,18 +2333,23 @@ namespace Utility
             };
             string[] array2 = new string[]
             {
+                ".\" ",
+                "!\" ",
+                "?\" ",
+                " (",
+                ") ",
                 ", ",
-                ".",
+                ". ",
                 ": ",
-                "\"",
+                " \"",
                 "\" ",
                 "'",
                 "' ",
-                "?",
-                "!",
+                "? ",
+                "! ",
                 "\"",
                 "\" ",
-                ".",
+                ". ",
                 ", ",
                 " ",
                 "...",
@@ -2490,9 +2529,20 @@ namespace Utility
 
         private static void appendTranslatedWord(StringBuilder result, string translatedText, ref string lastTranslatedWord, ref int startIndexOfNextTranslatedText)
         {
-            if (lastTranslatedWord.EndsWith("\n") || lastTranslatedWord.EndsWith("\t") || lastTranslatedWord.EndsWith(". ") || lastTranslatedWord.EndsWith("\"") || lastTranslatedWord.EndsWith("'") || lastTranslatedWord.EndsWith("? ") || lastTranslatedWord.EndsWith("! ") || lastTranslatedWord.EndsWith(".\" ") || lastTranslatedWord.EndsWith("?\" ") || lastTranslatedWord.EndsWith("!\" ") || lastTranslatedWord.EndsWith(": ") || lastTranslatedWord.EndsWith(">") || lastTranslatedWord.EndsWith("“"))
+            if (lastTranslatedWord.EndsWith("\n") || lastTranslatedWord.EndsWith("\t") || lastTranslatedWord.EndsWith(". ")
+                || lastTranslatedWord.EndsWith("\"") || lastTranslatedWord.EndsWith("\" ") || lastTranslatedWord.EndsWith("'")
+                || lastTranslatedWord.EndsWith("? ") || lastTranslatedWord.EndsWith("! ") || lastTranslatedWord.EndsWith(".\" ")
+                || lastTranslatedWord.EndsWith("?\" ") || lastTranslatedWord.EndsWith("!\" ") || lastTranslatedWord.EndsWith(": ")
+                || lastTranslatedWord.EndsWith("; ") || lastTranslatedWord.EndsWith("> ") || lastTranslatedWord.EndsWith(">")
+                || lastTranslatedWord.EndsWith(":") || lastTranslatedWord.EndsWith(";") || lastTranslatedWord.EndsWith("!")
+                || lastTranslatedWord.EndsWith("?")
+                ) 
             {
                 lastTranslatedWord = TranslatorEngine.toUpperCase(translatedText);
+            }
+            else if (lastTranslatedWord.EndsWith("."))
+            {
+                lastTranslatedWord = " " + TranslatorEngine.toUpperCase(translatedText);
             }
             else if (lastTranslatedWord.EndsWith(" ") || lastTranslatedWord.EndsWith("("))
             {

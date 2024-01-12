@@ -14,8 +14,8 @@ namespace DataAccess.Repository.IRepository
         Task<IEnumerable<Chapter>?> GetChaptersByBookIdAsync(int bookId);
 
         // crawl content chapter
-        Task<ChapterDto?> GetChapterByChapterConentCrawlAsync(int chineseBookId, short chapterIndex);
-        Task<IEnumerable<Chapter>?> GetChaptersByChineseBookIdAsync(int chineseBookId);
+        Task<ChapterDto?> GetChapterConentAsync(int bookId, int chineseBookId, short chapterIndex);
+        Task<IEnumerable<ChapterListDto>?> GetChaptersByChineseBookIdAsync(int chineseBookId);
     }
 }
 
