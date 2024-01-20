@@ -50,6 +50,7 @@ builder.Services.AddScoped<IBookTagRepository, BookTagRepository>();
 builder.Services.AddScoped<IBookBookTagRepository, BookBookTagRepository>();
 
 builder.Services.AddScoped<IBookReadingRepository, BookReadingRepository>();
+builder.Services.AddScoped<IBookReadingService, BookReadingService>();
 
 
 builder.Services.AddControllers();
@@ -258,6 +259,7 @@ app.UseCors(builder => builder
                      "https://api-url.truyenmoi.click",
                       "https://api.truyenmoi.click",
                       "http://localhost:4200",
+                      "http://127.0.0.1:8000",
                     "https://webbookangular-git-main-trongthuong96s-projects-80c5b89c.vercel.app")
     .AllowAnyMethod()
     .AllowAnyHeader()
@@ -266,7 +268,7 @@ app.UseCors(builder => builder
 
 // Thêm middleware vào pipeline
 app.UseMiddleware<ViewsCounterMiddleware>();
-//app.UseMiddleware<SignatureVerificationMiddleware>();
+app.UseMiddleware<SignatureVerificationMiddleware>();
 //app.UseHeaderCheck();
 
 app.UseAuthentication();

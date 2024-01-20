@@ -33,7 +33,7 @@ namespace DataAccess.Repository
                     {
                         Id = b.UserId,
                         UserName = b.ApplicationUser.UserName,
-                        FullName = b.ApplicationUser.Fullname,
+                        FullName = b.ApplicationUser.FullName,
                     },
                     CoverImage = b.CoverImage,
                     CreatedAt = b.CreatedAt,
@@ -82,7 +82,7 @@ namespace DataAccess.Repository
                     {
                         Id = b.UserId,
                         UserName = b.ApplicationUser.UserName,
-                        FullName = b.ApplicationUser.Fullname,
+                        FullName = b.ApplicationUser.FullName,
                     },
                     CoverImage = b.CoverImage,
                     CreatedAt = b.CreatedAt,

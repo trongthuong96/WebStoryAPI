@@ -207,9 +207,18 @@ namespace DataAccess.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("BirthDay")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -218,7 +227,7 @@ namespace DataAccess.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Fullname")
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -250,6 +259,9 @@ namespace DataAccess.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -271,33 +283,39 @@ namespace DataAccess.Migrations
                         {
                             Id = "a2ea16da-c3fc-48fa-9a68-05dfe1623f7a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4fcfc514-5737-4d05-8844-a2282fface36",
+                            BirthDay = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "7f83e522-24e0-4ba2-817b-e40a117bec12",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "lienminh9697@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LIENMINH9697@GMAIL.COM",
                             NormalizedUserName = "LIENMINH9697@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL1LiPTUT7OxFCAqxcf9D2fkLKckexDqn2LSknvceE6KNL7CF+dDbB1MaX1y3AMAUw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMZxUCKqHT2JKz2XXdrz+Pl55N++iJquh/Ur78fNOhntAyOr6Pa4xiMkX4UYzCF5dA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "lienminh9697@gmail.com"
                         },
                         new
                         {
                             Id = "a2ea16da-c3fc-48fa-9a68-0e1623f7a5df",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "149440ae-987f-4939-b987-edb2d65ff3b9",
+                            BirthDay = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "52d4715f-e23d-467d-9853-66ccf5c98633",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "khac.123@gmail.com",
                             EmailConfirmed = true,
-                            Fullname = "Khách Vãng Lai",
+                            FullName = "Khách Vãng Lai",
                             LockoutEnabled = false,
                             NormalizedEmail = "KHAC@123@GMAIL.COM",
                             NormalizedUserName = "KHAC.123@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAAfJxNoTtjclsuIpPqBrx+H8QzYDMXuNQZPJqGhZHV6uGJwxBm0wikuJJwvopqEvA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAAUJVJT7S+MB2bEa8gVsJ9f8vku/0LB+kqvuL8DpeBu8vIuBcKAiSQv3ZOCxJO+mg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "khach.123@gmail.com"
                         });
                 });
@@ -410,6 +428,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("BookSlug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BookTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

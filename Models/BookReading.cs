@@ -27,6 +27,8 @@ namespace Models
 
         public short ChapterIndex { get; set; }
 
+        public string BookTitle { get; set; }
+
         public string BookSlug { get; set; }
 
         public DateTime CreatedAt { get; set; }

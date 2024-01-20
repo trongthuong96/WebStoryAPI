@@ -8,7 +8,15 @@ namespace Models
 	public class ApplicationUser : IdentityUser
     {
         [MinLength(5, ErrorMessage = "Tên ít nhất chứa 5 ký tự!")]
-		public string? Fullname { get; set; }
+		public string? FullName { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
+
+        public DateTime BirthDay { get; set; }
+
+        public string? Avatar { get; set; }
 
         public ICollection<Book>? Books { get; set; }
 
@@ -19,30 +27,8 @@ namespace Models
         // Danh sách các comment của cuốn sách
         public ICollection<Comment>? Comments { get; set; }
 
-        // Thuộc tính ảo để lấy danh sách user
-        [NotMapped]
-        public virtual ICollection<Book>? Books_Comment
-        {
-            get
-            {
-                return Comments?.Select(bbt => bbt.Book).ToList();
-            }
-        }
-
         // Danh sách các Bookmark của cuốn sách
         public ICollection<UserBookmark>? UserBookmarks { get; set; }
-
-        // Thuộc tính ảo để lấy danh sách book
-        [NotMapped]
-        public virtual ICollection<Book>? Books_UserBookmark
-        {
-            get
-            {
-                return UserBookmarks?.Select(bbt => bbt.Book).ToList();
-            }
-        }
-
-        
     }
 }
 

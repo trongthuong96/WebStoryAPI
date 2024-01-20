@@ -94,15 +94,16 @@ namespace DataAccess.Services
                     bookReading.ChapterIndex = chapter.ChapterIndex;
                     bookReading.ChapNumber = chapter.ChapNumber;
                     bookReading.ChapTitle = chapter.Title;
+                    bookReading.BookTitle = chapter.BookTitle;
                     bookReading.BookSlug = SD.ConvertToSlug(chapter.BookTitle);
                     bookReading.CreatedAt = DateTime.UtcNow;
                     bookReading.UpdatedAt = DateTime.UtcNow;
                     bookReading.UserId = userId;
 
                     // add book reading
-                    _bookReadingRepository.AddAsync(bookReading);
+                    await _bookReadingRepository.AddAsync(bookReading);
                 }
-                else
+                else if (bookReading.ChapterIndex != chapter.ChapterIndex)
                 {
                     bookReading.UpdatedAt = DateTime.UtcNow;
                     bookReading.ChapterIndex = chapter.ChapterIndex;
@@ -110,7 +111,7 @@ namespace DataAccess.Services
                     bookReading.ChapTitle = chapter.Title;
 
                     // update book reading
-                    _bookReadingRepository.UpdateAsync(bookReading);
+                    await _bookReadingRepository.UpdateAsync(bookReading);
                 }
             }
 
@@ -315,11 +316,14 @@ namespace DataAccess.Services
                     // Tiếp tục xử lý sau khi tất cả công việc bất đồng bộ hoàn tất
                     await _chapterRepository.BulkAddRangeAsync(chapsRead.ToList());
 
-                    var book = await _bookRepository.GetByIdAsync(bookId);
+                    if (chapsRead.Count() > 0)
+                    {
+                        var book = await _bookRepository.GetByIdAsync(bookId);
 
-                    book.UpdatedAt = DateTime.UtcNow;
+                        book.UpdatedAt = DateTime.UtcNow;
 
-                    _bookRepository.UpdateAsync(book);
+                        await _bookRepository.UpdateAsync(book);
+                    }
                 }
             }
         }

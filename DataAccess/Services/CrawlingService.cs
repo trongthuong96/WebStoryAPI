@@ -579,16 +579,8 @@ namespace DataAccess.Services
                 string urlBase = "";
                 string chineseSiteName = "";
 
-                if (uriTemp.Equals(SD.LINK69XINSHU))
-                {
-                    urlBase = "https://www.69xinshu.com/book/";
-                    chineseSiteName = "69xinshu";
-
-                } else if (uriTemp.Equals(SD.LINK69SHU))
-                {
-                    urlBase = "https://www.69shuba.com/book/";
-                    chineseSiteName = "69shuba";
-                }
+                urlBase = "https://www.69xinshu.com/book/";
+                chineseSiteName = "69xinshu";
 
                 urlInfo = urlBase + bookId69ShubaString + ".htm";
 
@@ -769,11 +761,6 @@ namespace DataAccess.Services
                         }
 
                         await _chapterService.AddAndUpdateChaptersCrawl(bookId, chineseBookId, chapterCrawlls);
-
-                        //string cacheKey = $"chapters_{chineseBookId}";
-
-                        //// Xóa mục khỏi Redis cache
-                        //await _distributedCache.RemoveAsync(cacheKey);
                     }
                 }
             }

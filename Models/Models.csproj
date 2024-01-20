@@ -34,6 +34,7 @@
     <None Remove="Dto\Crawling\Translate\" />
     <None Remove="Dto\Crawling\69shuba\" />
     <None Remove="Dto\ChineseBookDto\" />
+    <None Remove="Dto\BookReading\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dto\" />
@@ -48,5 +49,6 @@
     <Folder Include="Dto\Crawling\Translate\" />
     <Folder Include="Dto\Crawling\69shuba\" />
     <Folder Include="Dto\ChineseBookDto\" />
+    <Folder Include="Dto\BookReading\" />
   </ItemGroup>
 </Project>

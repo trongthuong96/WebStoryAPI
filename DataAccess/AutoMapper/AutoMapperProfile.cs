@@ -3,6 +3,7 @@ using AutoMapper;
 using Models;
 using Models.Dto;
 using Models.Dto.Book;
+using Models.Dto.BookReading;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccess.AutoMapper
@@ -54,6 +55,10 @@ namespace DataAccess.AutoMapper
             CreateMap<ChineseBook, ChineseBookDto>();
 
             CreateMap<ChineseBookDto, ChineseBook>();
+
+            // bookreading
+            CreateMap<BookReading, BookReadingDto>();
+            CreateMap<BookReadingDto, BookReading>();
         }
 	}
 }

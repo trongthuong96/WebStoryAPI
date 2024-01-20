@@ -95,7 +95,7 @@ namespace DataAccess.Data
                          EmailConfirmed = true,
                          PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "Thuong@123"),
                          SecurityStamp = string.Empty,
-                         Fullname = "Khách Vãng Lai",
+                         FullName = "Khách Vãng Lai",
                      }
                  ); 
             });
