@@ -10,7 +10,7 @@ using Utility;
 
 namespace webstory.Controllers
 {
-    //[CustomValidateAntiForgeryToken]
+    [CustomValidateAntiForgeryToken]
     [Route("api/[controller]")]
     public class BookController : Controller
     {

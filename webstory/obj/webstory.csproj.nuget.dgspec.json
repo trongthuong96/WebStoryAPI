@@ -1,36 +1,38 @@
 {
   "format": 1,
   "restore": {
-    "/Users/trongthuong96/Desktop/WebStoryAPI/webstory/webstory.csproj": {}
+    "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\webstory\\webstory.csproj": {}
   },
   "projects": {
-    "/Users/trongthuong96/Desktop/WebStoryAPI/DataAccess/DataAccess.csproj": {
+    "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/trongthuong96/Desktop/WebStoryAPI/DataAccess/DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/DataAccess/DataAccess.csproj",
-        "packagesPath": "/Users/trongthuong96/.nuget/packages/",
-        "outputPath": "/Users/trongthuong96/Desktop/WebStoryAPI/DataAccess/obj/",
+        "projectPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\trongthuong96\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/trongthuong96/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\trongthuong96\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/trongthuong96/Desktop/WebStoryAPI/Models/Models.csproj": {
-                "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Models/Models.csproj"
+              "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Models\\Models.csproj"
               },
-              "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj": {
-                "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj"
+              "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\Utility.csproj": {
+                "projectPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\Utility.csproj"
               }
             }
           }
@@ -128,34 +130,36 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.312/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/trongthuong96/Desktop/WebStoryAPI/Models/Models.csproj": {
+    "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/trongthuong96/Desktop/WebStoryAPI/Models/Models.csproj",
+        "projectUniqueName": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Models/Models.csproj",
-        "packagesPath": "/Users/trongthuong96/.nuget/packages/",
-        "outputPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Models/obj/",
+        "projectPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Models\\Models.csproj",
+        "packagesPath": "C:\\Users\\trongthuong96\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/trongthuong96/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\trongthuong96\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj": {
-                "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj"
+              "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\Utility.csproj": {
+                "projectPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\Utility.csproj"
               }
             }
           }
@@ -217,26 +221,28 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.312/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj": {
+    "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\Utility.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj",
+        "projectUniqueName": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\Utility.csproj",
         "projectName": "Utility",
-        "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj",
-        "packagesPath": "/Users/trongthuong96/.nuget/packages/",
-        "outputPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/obj/",
+        "projectPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\Utility.csproj",
+        "packagesPath": "C:\\Users\\trongthuong96\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/trongthuong96/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\trongthuong96\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -276,41 +282,42 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.312/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/trongthuong96/Desktop/WebStoryAPI/webstory/webstory.csproj": {
+    "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\webstory\\webstory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/trongthuong96/Desktop/WebStoryAPI/webstory/webstory.csproj",
+        "projectUniqueName": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\webstory\\webstory.csproj",
         "projectName": "webstory",
-        "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/webstory/webstory.csproj",
-        "packagesPath": "/Users/trongthuong96/.nuget/packages/",
-        "outputPath": "/Users/trongthuong96/Desktop/WebStoryAPI/webstory/obj/",
+        "projectPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\webstory\\webstory.csproj",
+        "packagesPath": "C:\\Users\\trongthuong96\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\webstory\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/trongthuong96/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\trongthuong96\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/sdk/7.0.312/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/trongthuong96/Desktop/WebStoryAPI/DataAccess/DataAccess.csproj": {
-                "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/DataAccess/DataAccess.csproj"
+              "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\DataAccess\\DataAccess.csproj"
               },
-              "/Users/trongthuong96/Desktop/WebStoryAPI/Models/Models.csproj": {
-                "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Models/Models.csproj"
+              "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Models\\Models.csproj"
               },
-              "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj": {
-                "projectPath": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj"
+              "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\Utility.csproj": {
+                "projectPath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\Utility.csproj"
               }
             }
           }
@@ -411,7 +418,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.312/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

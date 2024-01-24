@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="../build/webstory.props" />
+  <Import Project="..\build\webstory.props" />
 </Project>

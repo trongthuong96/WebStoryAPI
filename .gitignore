@@ -1,2 +1,9 @@
 /.vs/
 /webstory/bin/
+/webstory/obj/
+/Utility/bin/
+/Utility/obj/
+/Models/bin/
+/Models/obj/
+/DataAccess/bin/
+/DataAccess/obj/

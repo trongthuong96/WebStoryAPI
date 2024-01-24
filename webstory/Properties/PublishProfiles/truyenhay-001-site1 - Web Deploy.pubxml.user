@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <History>True|2024-01-23T04:46:25.3033973Z;True|2024-01-22T22:46:31.0790703+07:00;True|2024-01-22T07:55:33.4558859+07:00;True|2024-01-21T16:34:24.4174829+07:00;True|2024-01-21T16:25:27.4582905+07:00;True|2024-01-21T15:45:34.1587678+07:00;True|2024-01-21T15:21:33.4748448+07:00;False|2024-01-21T15:21:09.2849264+07:00;True|2024-01-21T15:16:50.7190693+07:00;False|2024-01-21T15:16:12.3056241+07:00;True|2024-01-21T15:13:20.0451766+07:00;True|2024-01-21T14:57:27.0889551+07:00;False|2024-01-21T14:56:41.3491197+07:00;False|2024-01-21T14:55:59.1403997+07:00;True|2024-01-21T14:54:09.3480737+07:00;True|2024-01-21T14:48:10.5490570+07:00;True|2024-01-21T12:15:19.8991129+07:00;False|2024-01-21T12:14:44.4179679+07:00;True|2024-01-21T10:54:33.8841471+07:00;False|2024-01-21T10:54:12.4039905+07:00;True|2024-01-21T10:51:56.3065143+07:00;True|2024-01-21T10:30:08.3676459+07:00;False|2024-01-21T10:29:22.0178175+07:00;True|2024-01-21T10:27:53.3139600+07:00;False|2024-01-21T10:26:46.4437865+07:00;True|2024-01-21T10:24:29.4155449+07:00;True|2024-01-21T10:14:42.7655249+07:00;True|2024-01-21T10:04:16.4379727+07:00;False|2024-01-21T10:03:53.4155923+07:00;True|2024-01-21T09:35:38.4010132+07:00;False|2024-01-21T09:34:53.6602728+07:00;True|2024-01-21T09:33:00.2224699+07:00;True|2024-01-21T09:25:43.9675274+07:00;True|2024-01-21T09:18:49.2880291+07:00;True|2024-01-21T09:02:42.6507724+07:00;True|2024-01-21T08:59:12.1262466+07:00;True|2024-01-21T08:32:16.5555110+07:00;True|2024-01-20T18:49:40.5573115+07:00;False|2024-01-20T18:49:04.3157191+07:00;True|2024-01-20T18:43:20.7720829+07:00;True|2024-01-20T15:16:25.4801551+07:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=SQL5112.site4now.net%3bInitial Catalog=db_aa37b0_truyenhay%3bUser Id=db_aa37b0_truyenhay_admin%3bPassword=Thuong%40123</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

@@ -9,7 +9,7 @@ using Utility;
 
 namespace webstory.Controllers
 {
-    //[EnableCors(SD.CORSNAME)]
+    [CustomValidateAntiForgeryToken]
     [Route("api/[controller]")]
     public class CrawlingController : Controller
     {
@@ -100,8 +100,8 @@ namespace webstory.Controllers
         }
 
         // POST api/chap-content-crawl
-        [HttpPost("chap-content-crawl")]
-        public async Task<ActionResult> GetContentChapCrawl([FromBody] Data data)
+        [HttpGet("chap-content-crawl")]
+        public async Task<ActionResult> GetContentChapCrawl([FromQuery] Data data)
         {
             try
             {

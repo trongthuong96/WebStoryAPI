@@ -22,3 +22,15 @@
 /Users/trongthuong96/Desktop/WebStoryAPI/Utility/obj/Release/net7.0/refint/Utility.dll
 /Users/trongthuong96/Desktop/WebStoryAPI/Utility/obj/Release/net7.0/Utility.pdb
 /Users/trongthuong96/Desktop/WebStoryAPI/Utility/obj/Release/net7.0/ref/Utility.dll
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\bin\Release\net7.0\Utility.deps.json
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\bin\Release\net7.0\Utility.dll
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\bin\Release\net7.0\Utility.pdb
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\obj\Release\net7.0\Utility.csproj.AssemblyReference.cache
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\obj\Release\net7.0\Utility.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\obj\Release\net7.0\Utility.AssemblyInfoInputs.cache
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\obj\Release\net7.0\Utility.AssemblyInfo.cs
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\obj\Release\net7.0\Utility.csproj.CoreCompileInputs.cache
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\obj\Release\net7.0\Utility.dll
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\obj\Release\net7.0\refint\Utility.dll
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\obj\Release\net7.0\Utility.pdb
+C:\Users\trongthuong96\Source\Repos\WebStoryAPI\Utility\obj\Release\net7.0\ref\Utility.dll

@@ -135,11 +135,11 @@ builder.Services.AddAuthorization(options =>
 });
 
 // Views book
-builder.Services.AddStackExchangeRedisCache(options =>
+/*builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
     options.InstanceName = "BookViews";
-});
+});*/
 
 // encoding
 builder.Services.AddMvc().AddJsonOptions(options =>
@@ -157,6 +157,9 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 builder.Services.AddAntiforgery(options =>
 {
     options.HeaderName = "X-XSRF-TOKEN";
+    options.Cookie.Domain = ".truyenmoi.click";
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
 //builder.Services.AddControllersWithViews(options =>
@@ -194,32 +197,37 @@ if (app.Environment.IsDevelopment())
 // CRFS_TOKEN
 //var antiforgery = app.Services.GetRequiredService<IAntiforgery>();
 
-//app.Use((context, next) =>
-//{
-//    var requestPath = context.Request.Path.Value;
+/*app.Use((context, next) =>
+{
+    var requestPath = context.Request.Path.Value;
 
-//    //if (string.Equals(requestPath, "/api/**", StringComparison.OrdinalIgnoreCase)
-//    //    || string.Equals(requestPath, "/index.html", StringComparison.OrdinalIgnoreCase))
-//    //{
-//    var tokenSet = antiforgery.GetAndStoreTokens(context);
-//    context.Response.Cookies.Append("XSRF-TOKEN", tokenSet.RequestToken!,
-//        new CookieOptions { HttpOnly = false, SameSite = SameSiteMode.None });
-//    //}
+    if (string.Equals(requestPath, "/api/csrf/refresh-token", StringComparison.OrdinalIgnoreCase))
+    {
+        var tokenSet = antiforgery.GetAndStoreTokens(context);
+        context.Response.Cookies.Append("XSRF-TOKEN", tokenSet.RequestToken!,
+            new CookieOptions
+            {
+                HttpOnly = false,
+                //Domain = ".truyenmoi.click",
+                Secure = true,
+                SameSite = SameSiteMode.None
+            });
+    }
 
-//    return next(context);
-//});
+    return next(context);
+});*/
 
-//app.Use(async (context, next) =>
-//{
-//    var antiforgery = context.RequestServices.GetRequiredService<IAntiforgery>();
+/*app.Use(async (context, next) =>
+{
+    var antiforgery = context.RequestServices.GetRequiredService<IAntiforgery>();
 
-//    var tokens = antiforgery.GetAndStoreTokens(context);
+    var tokens = antiforgery.GetAndStoreTokens(context);
 
-//    // Lưu Request token vào session
-//    context.Session.SetString("XSRF-TOKEN", tokens.RequestToken!);
+    // Lưu Request token vào session
+    context.Session.SetString("XSRF-TOKEN", tokens.RequestToken!);
 
-//    await next();
-//});
+    await next();
+});*/
 
 //app.Use(async (context, next) =>
 //{

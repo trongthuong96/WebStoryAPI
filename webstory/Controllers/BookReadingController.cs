@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace webstory.Controllers
 {
+    [CustomValidateAntiForgeryToken]
     [Route("api/[controller]")]
     public class BookReadingController : Controller
     {

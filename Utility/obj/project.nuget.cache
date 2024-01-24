@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "+K1pQ3AVJIhRN255+ZOaErvjzymnDYYzjoWK/t2sODOPxeGXTmxgeW81mIAtrVYiEz2W9mZDWLyDbtAzXRodVw==",
+  "dgSpecHash": "VIXoXMiv/wusgBSiyunuxAS4ut9U+YRZLvNCL2JdzNZ02GvYG3K+NMY1QJBy4PRUbIn8CbiQJdLC/lLGqlLZCw==",
   "success": true,
-  "projectFilePath": "/Users/trongthuong96/Desktop/WebStoryAPI/Utility/Utility.csproj",
+  "projectFilePath": "C:\\Users\\trongthuong96\\source\\repos\\WebStoryAPI\\Utility\\Utility.csproj",
   "expectedPackageFiles": [
-    "/Users/trongthuong96/.nuget/packages/slugify.core/4.0.1/slugify.core.4.0.1.nupkg.sha512",
-    "/Users/trongthuong96/.nuget/packages/system.memory/4.5.5/system.memory.4.5.5.nupkg.sha512",
-    "/Users/trongthuong96/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
-    "/Users/trongthuong96/.nuget/packages/system.text.encoding.codepages/6.0.0/system.text.encoding.codepages.6.0.0.nupkg.sha512"
+    "C:\\Users\\trongthuong96\\.nuget\\packages\\slugify.core\\4.0.1\\slugify.core.4.0.1.nupkg.sha512",
+    "C:\\Users\\trongthuong96\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\trongthuong96\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\trongthuong96\\.nuget\\packages\\system.text.encoding.codepages\\6.0.0\\system.text.encoding.codepages.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

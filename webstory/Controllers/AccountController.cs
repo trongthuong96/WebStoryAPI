@@ -18,6 +18,7 @@ using Utility;
 
 namespace webstory.Controllers
 {
+    [CustomValidateAntiForgeryToken]
     [Route("api/[controller]")]
     public class AccountController : Controller
     {

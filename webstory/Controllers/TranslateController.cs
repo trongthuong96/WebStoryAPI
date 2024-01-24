@@ -5,7 +5,7 @@ using Utility;
 
 namespace webstory.Controllers
 {
-    //[EnableCors(SD.CORSNAME)]
+    [CustomValidateAntiForgeryToken]
     [Route("api/[controller]")]
     public class TranslateController : Controller
     {

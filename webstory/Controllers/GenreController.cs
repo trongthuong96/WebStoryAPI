@@ -9,8 +9,7 @@ using Utility;
 
 namespace webstory.Controllers
 {
-    //[ValidateAntiForgeryToken]
-    //[EnableCors(SD.CORSNAME)]
+    [CustomValidateAntiForgeryToken]
     [Route("api/[controller]")]
     public class GenreController : Controller
     {

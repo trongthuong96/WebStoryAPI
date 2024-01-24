@@ -43,17 +43,15 @@ namespace webstory.Controllers
         //    return Ok(crfsToken);
         //}
 
-        [HttpPost("refresh-token")]
+        [HttpGet("refresh-token")]
         [IgnoreAntiforgeryToken]
-        public async Task<ActionResult<CrfsToken>> RefreshCsrfTokenAsync()
+        public async Task<IActionResult> RefreshCsrfTokenAsync()
         {
             string token = _antiforgery.GetAndStoreTokens(HttpContext).RequestToken!;
 
             CrfsToken crfsToken = new CrfsToken { Token = await SD.EncryptAsync(token) };
 
-            Response.Headers.Append("XSRF-TOKEN", token);
-
-            await Task.Delay(50);
+            await Task.Delay(0);
 
             // Trả về token mới
             return Ok(crfsToken);
