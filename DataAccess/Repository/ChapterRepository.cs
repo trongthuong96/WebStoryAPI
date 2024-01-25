@@ -3,8 +3,10 @@ using DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.Dto;
+using Models.Dto.Book;
 using Models.Dto.Chapter;
 using System.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DataAccess.Repository
 {
@@ -182,9 +184,9 @@ namespace DataAccess.Repository
         }
 
         // chinese book id
-        public async Task<IEnumerable<ChapterListDto>?> GetChaptersByChineseBookIdAsync(int chineseBookId)
+        public async Task<(IEnumerable<ChapterListDto>?, int)> GetChaptersByChineseBookIdAsync(int chineseBookId, int page, int pageSize, int arrange)
         {
-            var chapterWithDetails = await _context.Chapters
+            var chapBaseQuery = _context.Chapters
                 .Where(c => c.ChineseBookId == chineseBookId)
                 .Select(c => new ChapterListDto
                 {
@@ -193,16 +195,37 @@ namespace DataAccess.Repository
                     ChapterIndex = c.ChapterIndex,
                     UpdatedAt = c.UpdatedAt
                 })
-                .OrderBy(c => c.ChapterIndex)
+                .AsQueryable();
+
+            IQueryable<ChapterListDto> chapQuery;
+
+            if (arrange == 0)
+            {
+                chapQuery = chapBaseQuery.OrderBy(c => c.ChapterIndex);
+            }
+            else
+            {
+                chapQuery = chapBaseQuery.OrderByDescending(c => c.ChapterIndex);
+            } 
+
+            var chapterWithDetails = await chapQuery
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
             if (chapterWithDetails == null)
             {
                 // Xử lý khi không tìm thấy sách
-                return null; // hoặc throw exception tùy vào yêu cầu của bạn
+                return (null, 0); // hoặc throw exception tùy vào yêu cầu của bạn
             }
 
-            return chapterWithDetails!;
+            // Lấy tổng số lượng sách dựa trên điều kiện tìm kiếm
+            var totalChaps = await chapQuery.CountAsync();
+
+            // Tính toán totalPages
+            var totalPages = (int)Math.Ceiling((double)totalChaps / pageSize);
+
+            return (chapterWithDetails, totalPages);
         }
 
         //private readonly string sqlConnectionString = "Server=sql.bsite.net\\MSSQL2016; TrustServerCertificate=True; MultiSubnetFailover=True;Initial Catalog=truyenhay_; User Id=truyenhay_; Password=Thuong@123;";

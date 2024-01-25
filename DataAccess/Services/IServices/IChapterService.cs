@@ -17,7 +17,7 @@ namespace DataAccess.Services.IServices
         Task<IEnumerable<ChapterDto>?> GetChaptersByBookIdAsync(int bookId);
         Task AddAndUpdateChaptersCrawl(int bookId, int chineseBookId, IEnumerable<ChapterCrawllDto> chapterCrawlls);
         Task<Chapter> AddAndUpdateChaptersContentCrawl(int chineseBookId, short chapterIndex);
-        Task<IEnumerable<ChapterListDto>?> GetChaptersByChineseBookIdAsync(int chineseBookId);
+        Task<(IEnumerable<ChapterListDto>?, int)> GetChaptersByChineseBookIdAsync(int chineseBookId, int page, int pageSize, int arrange);
         Task<ChapterDto?> GetChapterConentAsync(int bookId, int chineseBookId, short chapterIndex);
     }
 }

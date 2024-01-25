@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.Dto;
+using Models.Dto.Chapter;
 using Utility;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace webstory.Controllers
 {
-    [CustomValidateAntiForgeryToken]
+    //[CustomValidateAntiForgeryToken]
     [Route("api/[controller]")]
     public class ChapterController : Controller
     {
@@ -142,10 +143,25 @@ namespace webstory.Controllers
 
         // CHINESE BOOK ID
         [HttpGet("list-chinese/{chineseBookId}")]
-        public async Task<IActionResult> GetChaptersByChineseBookIdAsync(int chineseBookId)
+        public async Task<IActionResult> GetChaptersByChineseBookIdAsync(int chineseBookId,[FromQuery] int page, [FromQuery] int pageSize, [FromQuery] int arrange)
         {
-            return Ok(await _chapterService.GetChaptersByChineseBookIdAsync(chineseBookId));
+            var responseChaps = await _chapterService.GetChaptersByChineseBookIdAsync(chineseBookId, page, pageSize, arrange);
+
+            // Sử dụng ChapterApiResponse để đóng gói dữ liệu trả về
+            var apiResponse = new ChapterApiResponse
+            {
+                Chapters = responseChaps.Item1,
+                Total = responseChaps.Item2
+            };
+
+            return Ok(apiResponse);
         }
+    }
+
+    public class ChapterApiResponse
+    {
+        public IEnumerable<ChapterListDto>? Chapters { get; set; }
+        public int Total { get; set; }
     }
 }
 

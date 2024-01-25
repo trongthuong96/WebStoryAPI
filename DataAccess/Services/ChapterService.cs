@@ -434,14 +434,29 @@ namespace DataAccess.Services
         }
 
         // GET CHINESE BOOK ID
-        public async Task<IEnumerable<ChapterListDto>?> GetChaptersByChineseBookIdAsync(int chineseBookId)
+        public async Task<(IEnumerable<ChapterListDto>?, int)> GetChaptersByChineseBookIdAsync(int chineseBookId, int page, int pageSize, int arrange)
         {
             if (chineseBookId < 0)
             {
-                return null;
+                return (null, 0);
             }
 
-            var chaptersFromRepository = await _chapterRepository.GetChaptersByChineseBookIdAsync(chineseBookId);
+            if (arrange != 1)
+            {
+                arrange = 0;
+            }
+
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
+            if (pageSize <= 0)
+            {
+                pageSize = 300;
+            }
+
+            var chaptersFromRepository = await _chapterRepository.GetChaptersByChineseBookIdAsync(chineseBookId, page, pageSize, arrange);
 
             return chaptersFromRepository;
         }
