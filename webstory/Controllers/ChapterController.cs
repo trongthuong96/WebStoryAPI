@@ -29,7 +29,7 @@ namespace webstory.Controllers
 
         // GET api/values/5
         [HttpGet("{chapterId}")]
-        public async Task<ActionResult<ChapterDto>> GetChapterById(long chapterId)
+        public async Task<IActionResult> GetChapterById(long chapterId)
         {
             var book = await _chapterService.GetChapterByIdAsync(chapterId);
             if (book == null)
@@ -42,7 +42,7 @@ namespace webstory.Controllers
 
         // GET api/values/5
         [HttpGet("chapterIndex/{bookSlug}/{chapterIndex}")]
-        public async Task<ActionResult<ChapterDto>> GetChapterByChapterIndexAsync(string bookSlug, short chapterIndex)
+        public async Task<IActionResult> GetChapterByChapterIndexAsync(string bookSlug, short chapterIndex)
         {
             var book = await _chapterService.GetChapterByChapterIndexAsync(bookSlug, chapterIndex);
             if (book == null)
@@ -55,7 +55,7 @@ namespace webstory.Controllers
 
         // GET api/values
         [HttpGet("list/{bookId}")]
-        public async Task<ActionResult<IEnumerable<ChapterDto>>> GetChaptersByBookIdAsync(int bookId)
+        public async Task<IActionResult> GetChaptersByBookIdAsync(int bookId)
         {
             var book = await _chapterService.GetChaptersByBookIdAsync(bookId);
             if (book == null)
@@ -70,7 +70,7 @@ namespace webstory.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult> AddChapter([FromBody] ChapterCreateDto chapterCreateDto)
+        public async Task<IActionResult> AddChapter([FromBody] ChapterCreateDto chapterCreateDto)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace webstory.Controllers
         // PUT api/values/5
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateChapter(int id, [FromBody] ChapterUpdateDto chapterUpdateDto)
+        public async Task<IActionResult> UpdateChapter(int id, [FromBody] ChapterUpdateDto chapterUpdateDto)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace webstory.Controllers
         // DELETE api/values/5
         [Authorize(SD.ADMIN)]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteBook(int id)
+        public async Task<IActionResult> DeleteBook(int id)
         {
             try
             {

@@ -41,6 +41,28 @@ namespace DataAccess.Services
 
             return _mapper.Map<IEnumerable<BookReadingDto>>(books);
         }
+
+        public async Task<int> Delete(int bookId, int chineseBookId)
+        {
+            // Lấy thông tin user hiện tại từ HttpContextAccessor
+            var userId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+            {
+                return 400;
+            }
+
+            var books = await _bookReadingRepository.FindSingleAsync(br => br.UserId == userId && br.BookId == bookId && br.ChineseBookId == chineseBookId);
+
+            if (books == null)
+            {
+                return 404;
+            }
+
+            await _bookReadingRepository.DeleteAsync(books);
+
+            return 200;
+        }
     }
 }
 

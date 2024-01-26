@@ -157,7 +157,7 @@ builder.Services.AddMvc().AddJsonOptions(options =>
 builder.Services.AddAntiforgery(options =>
 {
     options.HeaderName = "X-XSRF-TOKEN";
-    //options.Cookie.Domain = ".truyenmoi.click";
+    options.Cookie.Domain = ".truyenmoi.click";
     options.Cookie.SameSite = SameSiteMode.None;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
@@ -276,7 +276,7 @@ app.UseCors(builder => builder
 
 // Thêm middleware vào pipeline
 app.UseMiddleware<ViewsCounterMiddleware>();
-//app.UseMiddleware<SignatureVerificationMiddleware>();
+app.UseMiddleware<SignatureVerificationMiddleware>();
 //app.UseHeaderCheck();
 
 app.UseAuthentication();

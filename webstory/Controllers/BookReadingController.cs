@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataAccess.Services;
 using DataAccess.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using Models.Dto.BookReading;
+using Utility;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,6 +27,7 @@ namespace webstory.Controllers
         }
 
         // GET: api/values
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetBookReadingsByUserIdAsync()
         {
@@ -49,9 +55,34 @@ namespace webstory.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Authorize]
+        [HttpDelete("{bookId}/{chineseBookId}")]
+        public async Task<IActionResult> Delete(int bookId, int chineseBookId)
         {
+            try
+            {
+                int result = await _bookReadingService.Delete(bookId, chineseBookId);
+
+                if (result == 400)
+                {
+                    return BadRequest("Not Exist User");
+                }
+                
+                if (result == 404)
+                {
+                    return NotFound("Not found book reading");
+                }
+
+                return Ok(new { Message = "Book reading deleted successfully" });
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { Message = "Internal server error" });
+            }
         }
     }
 }

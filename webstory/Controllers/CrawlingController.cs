@@ -101,7 +101,7 @@ namespace webstory.Controllers
 
         // POST api/chap-content-crawl
         [HttpGet("chap-content-crawl")]
-        public async Task<ActionResult> GetContentChapCrawl([FromQuery] Data data)
+        public async Task<IActionResult> GetContentChapCrawl([FromQuery] Data data)
         {
             try
             {

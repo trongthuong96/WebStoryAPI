@@ -22,7 +22,7 @@ namespace webstory.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
+        public async Task<IActionResult> GetBooks()
         {
             var books = await _bookService.GetBooks();
             return Ok(books);
@@ -30,7 +30,7 @@ namespace webstory.Controllers
 
         // find books order by updated at
         [HttpGet("OrderByUpdatedAt/{page}")]
-        public async Task<ActionResult<IEnumerable<BooksDto>>> GetBooksOrderByUpdatedAt(int page)
+        public async Task<IActionResult> GetBooksOrderByUpdatedAt(int page)
         {
             var books = await _bookService.GetBooksOrderByUpdatedAtAsync(page, 20);
             return Ok(books);
@@ -38,7 +38,7 @@ namespace webstory.Controllers
 
         // find books order by views
         [HttpGet("OrderByViews/{page}")]
-        public async Task<ActionResult<IEnumerable<BooksDto>>> GetBooksOrderByViewsAt(int page)
+        public async Task<IActionResult> GetBooksOrderByViewsAt(int page)
         {
             var books = await _bookService.GetBooksOrderByViewsAtAsync(page, 16);
             return Ok(books);
@@ -46,7 +46,7 @@ namespace webstory.Controllers
 
         // find books order by status complete
         [HttpGet("Status/{page}")]
-        public async Task<ActionResult<IEnumerable<BooksDto>>> GetBooksStatusCompleteAsync(int page)
+        public async Task<IActionResult> GetBooksStatusCompleteAsync(int page)
         {
             var books = await _bookService.GetBooksStatusCompleteAsync(page, 16);
             return Ok(books);
@@ -54,7 +54,7 @@ namespace webstory.Controllers
 
         // find books order by status complete
         [HttpGet("Author/{authorId}")]
-        public async Task<ActionResult<IEnumerable<BooksDto>>> GetBooksAuthorAsync(int authorId, int page)
+        public async Task<IActionResult> GetBooksAuthorAsync(int authorId, int page)
         {
             if (page <= 0)
             {
@@ -66,7 +66,7 @@ namespace webstory.Controllers
 
         // find books order by status complete
         [HttpGet("User/{userId}")]
-        public async Task<ActionResult<IEnumerable<BooksDto>>> GetBooksUserAsync(string userId, int page)
+        public async Task<IActionResult> GetBooksUserAsync(string userId, int page)
         {
             if (page <= 0)
             {
@@ -78,7 +78,7 @@ namespace webstory.Controllers
 
         // find book by id
         [HttpGet("{bookId}")]
-        public async Task<ActionResult<BookDto>> GetBookById(int bookId)
+        public async Task<IActionResult> GetBookById(int bookId)
         {
             var book = await _bookService.GetBookByIdAsync(bookId);
             if (book == null)
@@ -91,7 +91,7 @@ namespace webstory.Controllers
 
         // find book by slug
         [HttpGet("slug/{slug}")]
-        public async Task<ActionResult<BookDto>> GetBookByTitleSlugAsync(string slug)
+        public async Task<IActionResult> GetBookByTitleSlugAsync(string slug)
         {
             var book = await _bookService.GetBookByTitleSlugAsync(slug);
             if (book == null)
@@ -140,7 +140,7 @@ namespace webstory.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult> AddBook([FromBody] BookCreateDto bookCreateDto)
+        public async Task<IActionResult> AddBook([FromBody] BookCreateDto bookCreateDto)
         {
             try
             {
@@ -165,7 +165,7 @@ namespace webstory.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateBook(int id, [FromBody] BookUpdateDto bookUpdateDto)
+        public async Task<IActionResult> UpdateBook(int id, [FromBody] BookUpdateDto bookUpdateDto)
         {
             try
             {
@@ -192,7 +192,7 @@ namespace webstory.Controllers
 
         [Authorize(SD.ADMIN)]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteBook(int id)
+        public async Task<IActionResult> DeleteBook(int id)
         {
             try
             {

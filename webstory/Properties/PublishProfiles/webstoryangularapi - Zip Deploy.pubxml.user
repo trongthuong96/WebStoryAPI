@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup />
+  <PropertyGroup>
+    <History>False|2024-01-26T14:22:21.6508657Z;</History>
+    <LastFailureDetails>2024-01-26T14:22:21.6508657Z|profileHasCreds</LastFailureDetails>
+  </PropertyGroup>
 </Project>

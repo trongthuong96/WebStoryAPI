@@ -21,7 +21,7 @@ namespace webstory.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> GetGenres()
+        public async Task<IActionResult> GetGenres()
         {
             var books = await _genreService.GetGenres();
             return Ok(books);
@@ -29,13 +29,13 @@ namespace webstory.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public async Task<GenreDto> GetBooksByGenreId(short id, int page)
+        public async Task<IActionResult> GetBooksByGenreId(short id, int page)
         {
             if (page == 0)
             {
                 page = 1;
             }
-            return await _genreService.GetBooksByGenreId(id, page, 20);
+            return Ok(await _genreService.GetBooksByGenreId(id, page, 20));
         }
 
         // POST api/values
