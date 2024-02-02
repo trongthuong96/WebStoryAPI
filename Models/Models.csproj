@@ -37,7 +37,6 @@
     <None Remove="Dto\BookReading\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dto\" />
     <Folder Include="Dto\Book\" />
     <Folder Include="Dto\Genre\" />
     <Folder Include="Dto\Chapter\" />

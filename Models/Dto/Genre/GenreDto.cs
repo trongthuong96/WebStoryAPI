@@ -31,7 +31,7 @@ namespace Models.Dto
 
         public string CoverImage { get; set; }
 
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         public string AuthorName { get; set; }
 

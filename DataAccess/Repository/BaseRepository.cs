@@ -130,6 +130,11 @@ namespace DataAccess.Repository
         {
             await _context.BulkInsertAsync(entities);
         }
+
+        public async Task BulkDeleteRangeAsync(IEnumerable<T> entities)
+        {
+            await _context.BulkDeleteAsync(entities);
+        }
     }
 
 }

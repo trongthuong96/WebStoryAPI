@@ -23,6 +23,7 @@ namespace DataAccess.Repository.IRepository
         Task BulkReadAsync(IEnumerable<T> entities, Expression<Func<T, object>> searchExpression);
         IQueryable<T> Include(params Expression<Func<T, object>>[] includes);
         Task<TResult> FindSingleAsync<TResult>(Expression<Func<T, bool>> predicate, Expression<Func<T, TResult>> selector);
+        Task BulkDeleteRangeAsync(IEnumerable<T> entities);
     }
 }
 

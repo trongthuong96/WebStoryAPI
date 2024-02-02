@@ -16,7 +16,7 @@ namespace Models
 		public bool IsRead { get; set; }
 
 		[Required(ErrorMessage = "Thời gian không được để trống!")]
-		public DateTime CreatedAt { get; set; }
+		public DateTimeOffset CreatedAt { get; set; }
 
         [ForeignKey("Book")]
         public string UserId { get; set; }

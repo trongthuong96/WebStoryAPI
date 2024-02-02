@@ -13,11 +13,13 @@ namespace Models.Dto
 
         public string? Content { get; set; }
 
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         public long? Views { get; set; }
 
         public string? BookTitle { get; set; }
+
+        public int? ChapterIndexMax { get; set; }
     }
 }
 

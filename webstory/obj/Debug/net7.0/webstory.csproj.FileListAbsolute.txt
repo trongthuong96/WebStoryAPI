@@ -363,7 +363,6 @@ C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\websto
 C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\webstory.AssemblyInfoInputs.cache
 C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\webstory.AssemblyInfo.cs
 C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\webstory.csproj.CoreCompileInputs.cache
-C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\webstory.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\webstory.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\staticwebassets\msbuild.webstory.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\staticwebassets\msbuild.build.webstory.props
@@ -379,3 +378,4 @@ C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\refint
 C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\webstory.pdb
 C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\webstory.genruntimeconfig.cache
 C:\Users\trongthuong96\Source\Repos\WebStoryAPI\webstory\obj\Debug\net7.0\ref\webstory.dll
+C:\Users\trongthuong96\source\repos\WebStoryAPI\webstory\obj\Debug\net7.0\webstory.MvcApplicationPartsAssemblyInfo.cs

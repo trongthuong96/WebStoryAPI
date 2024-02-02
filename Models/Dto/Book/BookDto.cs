@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Models.Dto.Comment;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models.Dto
 {
@@ -20,10 +21,10 @@ namespace Models.Dto
         public string CoverImage { get; set; }
 
         [Required(ErrorMessage = "Thời gian tạo không được để trống!")]
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
         [Required(ErrorMessage = "Thời gian cập nhập không được để trống!")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         public short Status { get; set; }
 
@@ -36,7 +37,7 @@ namespace Models.Dto
         public ICollection<Rating>? Ratings { get; set; }
 
         // Danh sách các comment của cuốn sách
-        public ICollection<Comment>? Comments { get; set; }
+        public ICollection<CommentDto>? Comments { get; set; }
 
         public ICollection<BookBookTag>? BookBookTags { get; set; }
 

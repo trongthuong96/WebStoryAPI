@@ -9,7 +9,7 @@ namespace Models.Dto.Chapter
 
         public string? Title { get; set; }
 
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
     }
 }
 

@@ -10,7 +10,7 @@ namespace Models
 		[Required(ErrorMessage = "Tên tác giả không được để trống!")]
 		public string Name { get; set; }
 
-		public DateTime? Birthday { get; set; }
+		public DateTimeOffset? Birthday { get; set; }
 
 		[MinLength(30, ErrorMessage = "Tiểu sử tác giả ít nhất 30 ký tự!")]
 		public string? Bio { get; set; }

@@ -52,6 +52,8 @@ builder.Services.AddScoped<IBookBookTagRepository, BookBookTagRepository>();
 builder.Services.AddScoped<IBookReadingRepository, BookReadingRepository>();
 builder.Services.AddScoped<IBookReadingService, BookReadingService>();
 
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -267,7 +269,7 @@ app.UseCors(builder => builder
                      "https://api-url.truyenmoi.click",
                       "https://api.truyenmoi.click",
                       "http://localhost:4200",
-                      "http://127.0.0.1:8000",
+                      "http://127.0.0.1:8080",
                     "https://webbookangular-git-main-trongthuong96s-projects-80c5b89c.vercel.app")
     .AllowAnyMethod()
     .AllowAnyHeader()

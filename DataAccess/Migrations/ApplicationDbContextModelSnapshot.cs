@@ -210,15 +210,15 @@ namespace DataAccess.Migrations
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("BirthDay")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("BirthDay")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -259,8 +259,8 @@ namespace DataAccess.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -283,39 +283,39 @@ namespace DataAccess.Migrations
                         {
                             Id = "a2ea16da-c3fc-48fa-9a68-05dfe1623f7a",
                             AccessFailedCount = 0,
-                            BirthDay = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7f83e522-24e0-4ba2-817b-e40a117bec12",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDay = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            ConcurrencyStamp = "84ccb433-4590-4cc7-a989-d17ef6704381",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "lienminh9697@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LIENMINH9697@GMAIL.COM",
                             NormalizedUserName = "LIENMINH9697@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMZxUCKqHT2JKz2XXdrz+Pl55N++iJquh/Ur78fNOhntAyOr6Pa4xiMkX4UYzCF5dA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELcSy6a3XcEMrjGW3ZmbwB7QXRq8gPPcxyOm8UFEEYpV9i6rYLJ2VIW4ZZfF2uyBpg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             UserName = "lienminh9697@gmail.com"
                         },
                         new
                         {
                             Id = "a2ea16da-c3fc-48fa-9a68-0e1623f7a5df",
                             AccessFailedCount = 0,
-                            BirthDay = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "52d4715f-e23d-467d-9853-66ccf5c98633",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDay = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            ConcurrencyStamp = "68542427-1c0a-4f8c-a914-89f82b8c8690",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "khac.123@gmail.com",
                             EmailConfirmed = true,
                             FullName = "Khách Vãng Lai",
                             LockoutEnabled = false,
                             NormalizedEmail = "KHAC@123@GMAIL.COM",
                             NormalizedUserName = "KHAC.123@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAAUJVJT7S+MB2bEa8gVsJ9f8vku/0LB+kqvuL8DpeBu8vIuBcKAiSQv3ZOCxJO+mg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB5gx7DZnFR3SZ1CQi4Jn7i/CDnyAsiVFghptrZylOl+tHWfWFaHDaZg8ztx3ejufw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             UserName = "khach.123@gmail.com"
                         });
                 });
@@ -331,8 +331,8 @@ namespace DataAccess.Migrations
                     b.Property<string>("Bio")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Birthday")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("Birthday")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("ChineseName")
                         .HasColumnType("nvarchar(max)");
@@ -361,8 +361,8 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -379,8 +379,8 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -448,11 +448,11 @@ namespace DataAccess.Migrations
                     b.Property<int?>("ChineseBookId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -520,14 +520,14 @@ namespace DataAccess.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -608,8 +608,17 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("Hide")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Like")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("ParentId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -618,6 +627,8 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
+
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("UserId");
 
@@ -776,8 +787,8 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
@@ -808,8 +819,8 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<short>("RatingValue")
                         .HasColumnType("smallint");
@@ -838,8 +849,8 @@ namespace DataAccess.Migrations
                     b.Property<long?>("ChapterId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("BookId", "UserId");
 
@@ -1024,6 +1035,11 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Models.Comment", "ParentComment")
+                        .WithMany("Replies")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
@@ -1033,6 +1049,8 @@ namespace DataAccess.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Book");
+
+                    b.Navigation("ParentComment");
                 });
 
             modelBuilder.Entity("Models.GenreBook", b =>
@@ -1157,6 +1175,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Models.ChineseBook", b =>
                 {
                     b.Navigation("Chapters");
+                });
+
+            modelBuilder.Entity("Models.Comment", b =>
+                {
+                    b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("Models.Genre", b =>

@@ -10,11 +10,11 @@ namespace Models
         [MinLength(5, ErrorMessage = "Tên ít nhất chứa 5 ký tự!")]
 		public string? FullName { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
-        public DateTime BirthDay { get; set; }
+        public DateTimeOffset BirthDay { get; set; }
 
         public string? Avatar { get; set; }
 

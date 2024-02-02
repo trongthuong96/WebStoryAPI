@@ -19,7 +19,7 @@ namespace Models.Dto.BookReading
 
         public string BookTitle { get; set; }
 
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
     }
 }
 

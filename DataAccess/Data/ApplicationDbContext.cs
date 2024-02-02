@@ -55,6 +55,14 @@ namespace DataAccess.Data
                 entity.HasIndex(b => b.Slug).IsUnique();
             });
 
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.HasMany(u => u.Replies)
+                .WithOne(b => b.ParentComment)
+                .HasForeignKey(b => b.ParentId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
             string userName = "lienminh9697@gmail.com";
             string password = "Thuong@123";
 

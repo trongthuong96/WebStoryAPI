@@ -23,10 +23,10 @@ namespace Models
 		public string CoverImage { get; set; }
 
 		[Required(ErrorMessage = "Thời gian tạo không được để trống!")]
-		public DateTime CreatedAt { get; set; }
+		public DateTimeOffset CreatedAt { get; set; }
 
 		[Required(ErrorMessage = "Thời gian cập nhập không được để trống!")]
-		public DateTime UpdatedAt { get; set; }
+		public DateTimeOffset UpdatedAt { get; set; }
 
         [Required(ErrorMessage = "Trạng thái truyện không được để trống!")]
         public short Status { get; set; }

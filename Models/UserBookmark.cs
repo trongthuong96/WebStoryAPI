@@ -7,7 +7,7 @@ namespace Models
 	public class UserBookmark
 	{
 		[Required(ErrorMessage = "Thời gian tạo không được để trống!")]
-		public DateTime CreatedAt { get; set; }
+		public DateTimeOffset CreatedAt { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }

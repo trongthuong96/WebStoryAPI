@@ -1,6 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Models
 {
@@ -13,7 +13,7 @@ namespace Models
 		public string Content { get; set; }
 
 		[Required(ErrorMessage = "Ngày tạo không được để trống!")]
-		public DateTime CreatedAt { get; set; }
+		public DateTimeOffset CreatedAt { get; set; }
 
         [ForeignKey("Book")]
         public int BookId { get; set; }
@@ -23,7 +23,17 @@ namespace Models
         [ForeignKey("ApplicationUser")]
 		public string UserId { get; set; }
 
+		public bool Hide { get; set; }
+
+		public int Like { get; set; }
+
 		public ApplicationUser ApplicationUser { get; set; }
-	}
+
+		[ForeignKey("ParentComment")]
+        public long? ParentId { get; set; }
+        public Comment? ParentComment { get; set; }
+
+        public ICollection<Comment> Replies { get; set; }
+    }
 }
 

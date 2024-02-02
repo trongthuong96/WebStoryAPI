@@ -7,13 +7,13 @@ namespace Models.Dto
 
         public string Email { get; set; }
 
-        public DateTime UpdatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
 
         public string? Avatar { get; set; }
 
         public string? PhoneNumber { get; set; }
 
-        public DateTime BirthDay { get; set; }
+        public DateTimeOffset BirthDay { get; set; }
     }
 }
 

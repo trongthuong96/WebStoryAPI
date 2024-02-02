@@ -135,7 +135,12 @@ namespace DataAccess.Repository
         {
             if (chineseBookId > 0)
             {
+                var maxIndex = await _context.Chapters
+                        .Where(c => c.ChineseBookId == chineseBookId)
+                        .MaxAsync(c => (int?)c.ChapterIndex);
+
                 var chapterWithDetails = await _context.Chapters
+                  .Include(c => c.Book)
                   .Where(c => c.ChineseBookId == chineseBookId && c.ChapterIndex == chapterIndex)
                   .Select(c => new ChapterDto
                   {
@@ -145,7 +150,8 @@ namespace DataAccess.Repository
                       ChapterIndex = c.ChapterIndex,
                       UpdatedAt = c.UpdatedAt,
                       Views = c.Views,
-                      BookTitle = c.Book.Title
+                      BookTitle = c.Book.Title,
+                      ChapterIndexMax = maxIndex
                   })
                   .FirstOrDefaultAsync();
 
@@ -159,7 +165,12 @@ namespace DataAccess.Repository
             }
             else
             {
+                var maxIndex = await _context.Chapters
+                        .Where(c => c.BookId == bookId && c.ChineseBookId == null)
+                        .MaxAsync(c => (int?)c.ChapterIndex);
+
                 var chapterWithDetails = await _context.Chapters
+                 .Include(c => c.Book)
                  .Where(c => c.BookId == bookId && c.ChapterIndex == chapterIndex && c.ChineseBookId == null)
                  .Select(c => new ChapterDto
                  {
@@ -169,7 +180,8 @@ namespace DataAccess.Repository
                      ChapterIndex = c.ChapterIndex,
                      UpdatedAt = c.UpdatedAt,
                      Views = c.Views,
-                     BookTitle = c.Book.Title
+                     BookTitle = c.Book.Title,
+                     ChapterIndexMax = maxIndex
                  })
                  .FirstOrDefaultAsync();
 

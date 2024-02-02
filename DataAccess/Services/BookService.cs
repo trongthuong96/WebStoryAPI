@@ -1,18 +1,13 @@
-﻿using System;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using AutoMapper;
-using DataAccess.Repository;
 using DataAccess.Repository.IRepository;
 using DataAccess.Services.IServices;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Models;
 using Models.Dto;
 using Models.Dto.Book;
 using Models.Dto.Crawling;
-using Models.Dto.Crawling.shuba;
 using Utility;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace DataAccess.Services
 {
