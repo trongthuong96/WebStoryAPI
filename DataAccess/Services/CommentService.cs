@@ -17,7 +17,13 @@ namespace DataAccess.Services
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public CommentService(ICommentRepository commentRepository, IHttpContextAccessor httpContextAccessor, IMapper mapper, UserManager<ApplicationUser> userManager)
+        public CommentService
+        (
+            ICommentRepository commentRepository, 
+            IHttpContextAccessor httpContextAccessor, 
+            IMapper mapper, 
+            UserManager<ApplicationUser> userManager
+        )
         {
             _commentRepository = commentRepository;
             _httpContextAccessor = httpContextAccessor;
@@ -69,6 +75,7 @@ namespace DataAccess.Services
             commentDto.BookId = comment.BookId;
 
             var user = await _userManager.FindByIdAsync(userId);
+            commentDto.UserId = user.Id;
             commentDto.FullName = user.FullName;
             commentDto.Avatar = user.Avatar;
 

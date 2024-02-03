@@ -5,6 +5,7 @@ using Models.Dto;
 using Models.Dto.Book;
 using Models.Dto.BookReading;
 using Models.Dto.Comment;
+using Models.Dto.Rating;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccess.AutoMapper
@@ -64,6 +65,13 @@ namespace DataAccess.AutoMapper
             // comment
             CreateMap<Comment, CommentCreateDto>();
             CreateMap<CommentCreateDto, Comment>();
+
+            // rating
+            CreateMap<Rating, RatingCreateDto>();
+            CreateMap<Rating, RatingDto>();
+
+            CreateMap<RatingDto, Rating>();
+            CreateMap<RatingCreateDto, Rating>();
         }
 	}
 }

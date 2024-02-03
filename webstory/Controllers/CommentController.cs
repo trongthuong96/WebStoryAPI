@@ -7,6 +7,7 @@ using Models.Dto.Comment;
 
 namespace webstory.Controllers
 {
+    [CustomValidateAntiForgeryToken]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : Controller

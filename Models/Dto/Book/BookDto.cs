@@ -1,4 +1,5 @@
 ﻿using Models.Dto.Comment;
+using Models.Dto.Rating;
 using System.ComponentModel.DataAnnotations;
 
 namespace Models.Dto
@@ -33,11 +34,6 @@ namespace Models.Dto
         public ApplicationUserDto ApplicationUser { get; set; }
 
         public AuthorDto Author { get; set; }
-
-        public ICollection<Rating>? Ratings { get; set; }
-
-        // Danh sách các comment của cuốn sách
-        public ICollection<CommentDto>? Comments { get; set; }
 
         public ICollection<BookBookTag>? BookBookTags { get; set; }
 

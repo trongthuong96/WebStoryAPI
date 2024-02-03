@@ -40,7 +40,6 @@ namespace DataAccess.Repository
                     UpdatedAt = b.UpdatedAt,
                     Views = b.Views,
                     Author = new AuthorDto(b.Author.Id, b.Author.Name),
-                    Ratings = b.Ratings,
                     Genres = b.GenreBooks.Select(bg => new GenreDto
                     {
                         Id = bg.Genre.Id,
@@ -89,7 +88,6 @@ namespace DataAccess.Repository
                     UpdatedAt = b.UpdatedAt,
                     Views = b.Views,
                     Author = new AuthorDto(b.Author.Id, b.Author.Name),
-                    Ratings = b.Ratings,
                     Genres = b.GenreBooks.Select(bg => new GenreDto
                     {
                         Id = bg.Genre.Id,

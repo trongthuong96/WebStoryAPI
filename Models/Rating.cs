@@ -11,9 +11,7 @@ namespace Models
 		[Required(ErrorMessage = "Điểm đánh giá không được trống!")]
 		public short RatingValue { get; set; }
 
-		[Required(ErrorMessage = "Bình luận đánh giá không được trống!")]
-		[MinLength(5, ErrorMessage = "Nội dung ít nhất 5 ký tự!")]
-		public string Comment { get; set; }
+		public string? Content { get; set; }
 
 		[Required(ErrorMessage = "Thời gian tạo không được để trống!")]
 		public DateTimeOffset CreatedAt { get; set; }
